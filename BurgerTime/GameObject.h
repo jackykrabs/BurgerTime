@@ -15,6 +15,7 @@ public:
 	void updateClipart();
 	sf::Sprite mySprite;
 
+	void move(sf::Vector2f);
 	sf::Vector2f getVelocity() { return velocity; }
 
 	void setPosition(sf::Vector2f);
@@ -26,7 +27,16 @@ public:
 	void setX(double x);
 	void setY(double y);
 
-	sf::Sprite getAnimationSprite(){ return animation->getSprite(); }
+	int getDirection() { return animation->getDirection(); }
+	void setDirection(int direction) { animation->setDirection(direction); }
+
+	void flip() { animation->flip(); }
+
+	std::string getAction() { return animation->getAction(); }
+	void setAction(std::string action){ animation->setAction(action); }
+
+	void processName() { animation->processName(); }
+	sf::Sprite* getAnimationSprite() { return animation->getSprite(); }
 protected:
 	Animation* animation;
 	sf::Texture myTexture;

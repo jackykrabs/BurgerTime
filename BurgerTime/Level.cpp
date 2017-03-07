@@ -21,12 +21,10 @@ Level::~Level()
 //no preconditions or post conditions
 void Level::play()
 {
-<<<<<<< HEAD
-	myGO.setX(50);
-	myGO.setY(50);
-=======
+	myGO->setX(50);
+	myGO->setY(50);
 	myGO->mySprite.setPosition(50, 50);
->>>>>>> origin/master
+
 	int counter = 0;
 	sf::Clock tempClock;
 	sf::Time tempTime;
@@ -46,11 +44,9 @@ void Level::play()
 			gameLogic();
 
 			window->clear();
-<<<<<<< HEAD
-			window->draw(myGO.getAnimationSprite());
-=======
-			window->draw(myGO->mySprite);
->>>>>>> origin/master
+
+			window->draw(*myGO->getAnimationSprite());
+
 			window->display();
 			gameClock.restart();
 			counter++;
@@ -68,8 +64,9 @@ void Level::play()
 //no preconditions or postconditions
 void Level::gameLogic()
 {
-	myGO->mySprite.move(myGO->getVelocity());
+	myGO->move(myGO->getVelocity());
 	//game logic goes here
+	myGO->step();
 }
 
 //handle the events (key input, close screen, etc)
@@ -87,24 +84,56 @@ void Level::handleEvents(sf::Event event)
 		case sf::Keyboard::Down:
 			std::cout << "Down was pressed" << std::endl;
 			myGO->setvY(5);
+			if (myGO->getAction() != "climbing")
+			{
+				myGO->setAction("climbing");
+				myGO->processName();
+			}
 			break;
 		case sf::Keyboard::Up:
 			std::cout << "Up was pressed" << std::endl;
 			myGO->setvY(-5);
+			if (myGO->getAction() != "climbing")
+			{
+				myGO->setAction("climbing");
+				myGO->processName();
+			}
 			break;
 		case sf::Keyboard::Left:
-			//levelComplete = true;
+			if (myGO->getAction() != "walking")
+			{
+				myGO->setAction("walking");
+				myGO->processName();
+			}
 			std::cout << "Left was pressed" << std::endl;
 			myGO->setvX(-5);
+			if (myGO->getDirection() == 1)
+			{
+				myGO->flip();
+				myGO->setDirection(0);
+			}
 			break;
 		case sf::Keyboard::Right:
+			if (myGO->getAction() != "walking")
+			{
+				myGO->setAction("walking");
+				myGO->processName();
+			}
 			std::cout << "Right was pressed" << std::endl;
 			myGO->setvX(5);
-			myGO->mySprite.scale(-1, 1);
+			if (myGO->getDirection() == 0)
+			{
+				myGO->flip();
+				myGO->setDirection(1);
+			}
 			break;
 		case sf::Keyboard::Return:
 			std::cout << "Pepper shot!" << std::endl;
-			myGO->updateClipart();
+			if (myGO->getAction() != "throwing")
+			{
+				myGO->setAction("throwing");
+				myGO->processName();
+			}
 			break;
 		}
 		break;
@@ -113,6 +142,11 @@ void Level::handleEvents(sf::Event event)
 	case sf::Event::KeyReleased:
 		myGO->setvX(0);
 		myGO->setvY(0);
+		if (myGO->getAction() != "still")
+		{
+			myGO->setAction("still");
+			myGO->processName();
+		}
 		break;
 	}
 }

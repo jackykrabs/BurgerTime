@@ -8,24 +8,24 @@
 #include <SFML/Window.hpp>
 #include <string>
 
+using namespace std;
 GameObject::GameObject()
 {
-<<<<<<< HEAD
-	animation = new Animation("pepper", "walking", 30);
-	timer = 0;
-=======
-	GameObject("sasser.jpg");
+
 }
 
 GameObject::GameObject(std::string fileName)
 {
->>>>>>> origin/master
+	animation = new Animation("pepper", "still", 4);
+	timer = 0;
+
 	sf::Image myImage;
 	myImage.loadFromFile("images//"+fileName);
 	myTexture.loadFromImage(myImage);
 	mySprite.setTexture(myTexture);
 	mySprite.setOrigin(mySprite.getTextureRect().width / 2, mySprite.getTextureRect().height / 2);
 	mySprite.scale(5, 5);
+	animation->setScale(sf::Vector2f(5, 5));
 }
 
 
@@ -44,9 +44,12 @@ void GameObject::updateClipart()
 void GameObject::step()
 {
 	if (timer % animation->getAnimationSpeed() == 0)
-		animation->setFrame(animation->getFrame() + 1);
-	if (animation->getMaxFrame() == animation->getFrame())
-		animation->setFrame(animation->getMinFrame());
+	{
+		if (animation->getMaxFrame() <= animation->getFrame())
+			animation->setFrame(animation->getMinFrame());
+		else
+			animation->setFrame(animation->getFrame() + 1);
+	}
 
 	//iterate timer
 	timer++;
@@ -56,6 +59,7 @@ void GameObject::step()
 //precondition: vector2f of position
 void GameObject::setPosition(sf::Vector2f position)
 {
+	animation->setPosition(x,y);
 	this->position = position;
 }
 
@@ -64,7 +68,7 @@ void GameObject::setPosition(sf::Vector2f position)
 void GameObject::setX(double x)
 {
 	position.x = x;
-	animation->setPosition(position);
+	animation->setPosition(x,y);
 }
 
 //set the y position
@@ -72,5 +76,11 @@ void GameObject::setX(double x)
 void GameObject::setY(double y)
 {
 	position.y = y;
-	animation->setPosition(position);
+	animation->setPosition(x,y);
+}
+
+//method to move the game object
+void GameObject::move(sf::Vector2f velocity)
+{
+	animation->move(velocity);
 }
