@@ -2,6 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include "GameObject.h"
 #include "Player.h"
+#include <vector>
+
 class Level
 {
 public:
@@ -27,5 +29,6 @@ private:
 
 	//test gameobject
 	Player* player;
+	std::vector <GameObject*> gameObjects;
 };
 

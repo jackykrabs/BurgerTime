@@ -16,7 +16,7 @@ GameObject::GameObject()
 
 GameObject::GameObject(std::string fileName)
 {
-	animation = new Animation("pepper", "still", 4);
+	animation = new Animation(fileName, "still", 4);
 	timer = 0;
 
 	sf::Image myImage;

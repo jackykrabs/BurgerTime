@@ -77,7 +77,7 @@ void Animation::loadTexture()
 //set position
 void Animation::setPosition(double x, double y)
 {
-	sprite->setPosition(x, y);
+	sprite->setPosition((float)x,(float) y);
 }
 
 //method to set the scale of the object

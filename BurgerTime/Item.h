@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 
-class Item : GameObject
+class Item : public GameObject
 {
 public:
 	Item();

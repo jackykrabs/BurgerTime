@@ -4,6 +4,7 @@
 #include <SFML\Window.hpp>
 #include <iostream>
 #include <string.h>
+#include "Item.h"
 
 Level::Level(int levelNumber, int lives, int score, sf::RenderWindow *window)
 {
@@ -11,6 +12,8 @@ Level::Level(int levelNumber, int lives, int score, sf::RenderWindow *window)
 	this->levelNumber = levelNumber;
 	buildLevel();
 	player = new Player();
+	gameObjects.push_back(new Item());
+	gameObjects.at(0)->setPosition(sf::Vector2f(100, 100));
 }
 
 Level::~Level()
@@ -140,6 +143,7 @@ void Level::handleEvents(sf::Event event)
 void Level::drawObjects()
 {
 	window->clear();
+	window->draw(*gameObjects.at(0)->getAnimationSprite());
 	window->draw(*player->getAnimationSprite());
 	window->display();
 }
