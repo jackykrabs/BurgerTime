@@ -10,7 +10,7 @@ Level::Level(int levelNumber, int lives, int score, sf::RenderWindow *window)
 	this->window = window;
 	this->levelNumber = levelNumber;
 	buildLevel();
-	myGO = new GameObject("pepper-6.png");
+	player = new Player();
 }
 
 Level::~Level()
@@ -21,16 +21,11 @@ Level::~Level()
 //no preconditions or post conditions
 void Level::play()
 {
-	myGO->setX(50);
-	myGO->setY(50);
-	myGO->mySprite.setPosition(50, 50);
+	player->setX(100);
+	player->setY(50);
 
-	int counter = 0;
-	sf::Clock tempClock;
-	sf::Time tempTime;
 	while (window->isOpen() && levelComplete != true)
 	{
-		tempTime = tempClock.getElapsedTime();
 		gameTime = gameClock.getElapsedTime();
 
 		//control the game to be limited to about 60 fps
@@ -42,20 +37,9 @@ void Level::play()
 				handleEvents(event);
 			}
 			gameLogic();
-
-			window->clear();
-
-			window->draw(*myGO->getAnimationSprite());
-
-			window->display();
+			drawObjects();
+			
 			gameClock.restart();
-			counter++;
-		}
-		if (tempTime.asMilliseconds() >= 1000)
-		{
-			tempClock.restart();
-			std::cout << counter << std::endl;
-			counter = 0;
 		}
 	}
 }
@@ -64,9 +48,9 @@ void Level::play()
 //no preconditions or postconditions
 void Level::gameLogic()
 {
-	myGO->move(myGO->getVelocity());
+	player->move(player->getVelocity());
 	//game logic goes here
-	myGO->step();
+	player->step();
 }
 
 //handle the events (key input, close screen, etc)
@@ -83,56 +67,56 @@ void Level::handleEvents(sf::Event event)
 		{
 		case sf::Keyboard::Down:
 			std::cout << "Down was pressed" << std::endl;
-			myGO->setvY(5);
-			if (myGO->getAction() != "climbing")
+			player->setvY(5);
+			if (player->getAction() != "climbing")
 			{
-				myGO->setAction("climbing");
-				myGO->processName();
+				player->setAction("climbing");
+				player->processName();
 			}
 			break;
 		case sf::Keyboard::Up:
 			std::cout << "Up was pressed" << std::endl;
-			myGO->setvY(-5);
-			if (myGO->getAction() != "climbing")
+			player->setvY(-5);
+			if (player->getAction() != "climbing")
 			{
-				myGO->setAction("climbing");
-				myGO->processName();
+				player->setAction("climbing");
+				player->processName();
 			}
 			break;
 		case sf::Keyboard::Left:
-			if (myGO->getAction() != "walking")
+			if (player->getAction() != "walking")
 			{
-				myGO->setAction("walking");
-				myGO->processName();
+				player->setAction("walking");
+				player->processName();
 			}
 			std::cout << "Left was pressed" << std::endl;
-			myGO->setvX(-5);
-			if (myGO->getDirection() == 1)
+			player->setvX(-5);
+			if (player->getDirection() == 1)
 			{
-				myGO->flip();
-				myGO->setDirection(0);
+				player->flip();
+				player->setDirection(0);
 			}
 			break;
 		case sf::Keyboard::Right:
-			if (myGO->getAction() != "walking")
+			if (player->getAction() != "walking")
 			{
-				myGO->setAction("walking");
-				myGO->processName();
+				player->setAction("walking");
+				player->processName();
 			}
 			std::cout << "Right was pressed" << std::endl;
-			myGO->setvX(5);
-			if (myGO->getDirection() == 0)
+			player->setvX(5);
+			if (player->getDirection() == 0)
 			{
-				myGO->flip();
-				myGO->setDirection(1);
+				player->flip();
+				player->setDirection(1);
 			}
 			break;
 		case sf::Keyboard::Return:
 			std::cout << "Pepper shot!" << std::endl;
-			if (myGO->getAction() != "throwing")
+			if (player->getAction() != "throwing")
 			{
-				myGO->setAction("throwing");
-				myGO->processName();
+				player->setAction("throwing");
+				player->processName();
 			}
 			break;
 		}
@@ -140,17 +124,25 @@ void Level::handleEvents(sf::Event event)
 
 	//make it so the gameobject stops moving when the key is released
 	case sf::Event::KeyReleased:
-		myGO->setvX(0);
-		myGO->setvY(0);
-		if (myGO->getAction() != "still")
+		player->setvX(0);
+		player->setvY(0);
+		if (player->getAction() != "still")
 		{
-			myGO->setAction("still");
-			myGO->processName();
+			player->setAction("still");
+			player->processName();
 		}
 		break;
 	}
 }
 
+//draw the objects in the level
+//no preconditions or postconditions
+void Level::drawObjects()
+{
+	window->clear();
+	window->draw(*player->getAnimationSprite());
+	window->display();
+}
 //build the level, based off the current level number (1-6)
 //preconditions: level number is set (should be set in constructor)
 void Level::buildLevel()

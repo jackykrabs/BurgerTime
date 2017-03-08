@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "GameObject.h"
-
+#include "Player.h"
 class Level
 {
 public:
@@ -21,10 +21,11 @@ private:
 	void buildLevelSix();
 	void handleEvents(sf::Event);
 	void gameLogic();
+	void drawObjects();
 	sf::Clock gameClock;
 	sf::Time gameTime;
 
 	//test gameobject
-	GameObject* myGO;
+	Player* player;
 };
 

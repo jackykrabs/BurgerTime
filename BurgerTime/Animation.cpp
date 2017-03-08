@@ -18,7 +18,6 @@ Animation::Animation(std::string name, std::string action, int animationSpeed)
 	loadImages();
 	loadTexture();
 	sprite->setTexture(*texture);
-	sprite->setPosition(50, 50);
 	sprite->setOrigin(sprite->getLocalBounds().width / 2, sprite->getLocalBounds().height / 2);
 }
 
