@@ -2,11 +2,10 @@
 #include "Item.h"
 
 
-Item::Item() : GameObject("hotdog")
+Item::Item() : GameObject("coffee")
 {
-	animation->setScale(sf::Vector2f(5, 5));
-	animation->setPosition(100, 100);
-
+	animation->setScale(sf::Vector2f(2.5, 2.5));
+	
 }
 
 

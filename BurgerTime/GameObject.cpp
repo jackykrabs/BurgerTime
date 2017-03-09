@@ -16,7 +16,7 @@ GameObject::GameObject()
 
 GameObject::GameObject(std::string fileName)
 {
-	animation = new Animation(fileName, "still", 4);
+	animation = new Animation(fileName, "still", 4, sf::Vector2f(500,500));
 	timer = 0;
 
 	sf::Image myImage;
@@ -59,8 +59,8 @@ void GameObject::step()
 //precondition: vector2f of position
 void GameObject::setPosition(sf::Vector2f position)
 {
-	animation->setPosition(x,y);
 	this->position = position;
+	animation->setPosition(position.x, position.y);
 }
 
 //set the x position

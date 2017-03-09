@@ -8,7 +8,7 @@
 class Animation
 {
 public:
-	Animation(std::string, std::string, int);
+	Animation(std::string, std::string, int, sf::Vector2f);
 	void changeName(std::string);
 	//void setPosition(sf::Vector2f position) { this->position = position; }
 	void setPosition(double x, double y);

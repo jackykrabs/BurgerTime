@@ -5,7 +5,7 @@
 #include <vector>
 #include <SFML\Graphics.hpp>
 
-Animation::Animation(std::string name, std::string action, int animationSpeed)
+Animation::Animation(std::string name, std::string action, int animationSpeed, sf::Vector2f position)
 {
 	isFlipped = false;
 	direction = 0;
@@ -19,6 +19,7 @@ Animation::Animation(std::string name, std::string action, int animationSpeed)
 	loadTexture();
 	sprite->setTexture(*texture);
 	sprite->setOrigin(sprite->getLocalBounds().width / 2, sprite->getLocalBounds().height / 2);
+	this->position = position;
 }
 
 
@@ -36,8 +37,8 @@ void Animation::processName()
 	}
 	else if (action == "still")
 	{
-		minFrame = 1;
-		maxFrame = 1;
+		minFrame = 0;
+		maxFrame = 0;
 	}
 	else if (action == "throwing")
 	{
@@ -55,11 +56,19 @@ void Animation::processName()
 //method to load the images into the images vector (just from the name)
 void Animation::loadImages()
 {
-	for (int i = 1; i <= 14; i++)
+	if (name != "coffee")
 	{
+		for (int i = 1; i <= 14; i++)
+		{
+			sf::Image* temp = new sf::Image();
+			std::string filePath = "images\\" + name + "-" + std::to_string(i) + ".png";
+			temp->loadFromFile(filePath);
+			images.push_back(temp);
+		}
+	}
+	else{
 		sf::Image* temp = new sf::Image();
-		std::string filePath = "images\\" + name + "-" + std::to_string(i) + ".png";
-		temp->loadFromFile(filePath);
+		temp->loadFromFile("images\\coffee.png");
 		images.push_back(temp);
 	}
 }
@@ -72,6 +81,7 @@ void Animation::loadTexture()
 	texture->loadFromImage(*images.at(frame));
 	sprite->setTexture(*texture);
 	sprite->setTextureRect(sf::IntRect(0, 0, width, height));
+	sprite->setPosition(position);
 }
 
 //set position
@@ -90,6 +100,8 @@ void Animation::setScale(sf::Vector2f scale)
 void Animation::move(sf::Vector2f velocity)
 {
 	sprite->move(velocity);
+	position.x += velocity.x;
+	position.y += velocity.y;
 }
 
 //method to set frame and update sprite

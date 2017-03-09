@@ -12,8 +12,11 @@ Level::Level(int levelNumber, int lives, int score, sf::RenderWindow *window)
 	this->levelNumber = levelNumber;
 	buildLevel();
 	player = new Player();
-	gameObjects.push_back(new Item());
-	gameObjects.at(0)->setPosition(sf::Vector2f(100, 100));
+	for (int i = 0; i < 7; i++)
+	{
+		gameObjects.push_back(new Item());
+		gameObjects.at(i)->setPosition(sf::Vector2f(i * 75 + 100, i * 75 + 100));
+	}
 }
 
 Level::~Level()
@@ -24,8 +27,6 @@ Level::~Level()
 //no preconditions or post conditions
 void Level::play()
 {
-	player->setX(100);
-	player->setY(50);
 
 	while (window->isOpen() && levelComplete != true)
 	{
@@ -54,6 +55,7 @@ void Level::gameLogic()
 	player->move(player->getVelocity());
 	//game logic goes here
 	player->step();
+
 }
 
 //handle the events (key input, close screen, etc)
@@ -143,7 +145,10 @@ void Level::handleEvents(sf::Event event)
 void Level::drawObjects()
 {
 	window->clear();
-	window->draw(*gameObjects.at(0)->getAnimationSprite());
+	for (int i = 0; i < gameObjects.size(); i++)
+	{
+		window->draw(*gameObjects.at(i)->getAnimationSprite());
+	}
 	window->draw(*player->getAnimationSprite());
 	window->display();
 }
