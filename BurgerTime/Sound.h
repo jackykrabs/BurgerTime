@@ -10,8 +10,9 @@ public:
 	Sound(string, bool);
 	void play();
 	void getSound();
+	void pause();
+	void setSound(string);
 	bool music;
-	string fuileName;
 	sf::SoundBuffer buffer;
 	sf::Music gameMusic;
 	sf::Sound gameSound;

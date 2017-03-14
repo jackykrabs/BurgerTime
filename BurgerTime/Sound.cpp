@@ -19,7 +19,7 @@ Sound::Sound(string fileName, bool temp)
 	}
 	else
 	{
-		if (!buffer.loadFromFile("Filename"))
+		if (!buffer.loadFromFile(fileName))
 			cout << "error loading sound" << endl;
 		else
 			gameSound.setBuffer(buffer);
@@ -29,8 +29,7 @@ Sound::Sound(string fileName, bool temp)
 
 void Sound::play()
 {
-	gameMusic.stop();
-	gameSound.stop();
+	pause();
 	if (music)
 		gameMusic.play();
 	else
@@ -40,9 +39,23 @@ void Sound::play()
 
 void Sound::pause()
 {
-
+	gameSound.pause();
+	gameMusic.pause();
 }
 
+
+void Sound::setSound(string fileName)
+{
+	if (!music)
+	{
+		if (!buffer.loadFromFile(fileName))
+			cout << "error loading sound" << endl;
+		else
+			gameSound.setBuffer(buffer);
+	}
+	else
+		cout << "error cannot set for music" << endl;
+}
 
 Sound::~Sound()
 {
