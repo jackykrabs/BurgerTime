@@ -15,10 +15,16 @@ Level::Level(int levelNumber, int lives, int score, sf::RenderWindow *window)
 	this->levelNumber = levelNumber;
 	buildLevel();
 	player = new Player();
+
 	for (int i = 0; i < 5; i++)
 	{
+		gameObjects.push_back(new Floor());
+		gameObjects.at(i)->setPosition(sf::Vector2f(500 + 56 * i, 500));
+	}
+	for (int i = 5; i < 10; i++)
+	{
 		gameObjects.push_back(new Ladder());
-		gameObjects.at(i)->setPosition(sf::Vector2f(500, 600 - 75 * i));
+		gameObjects.at(i)->setPosition(sf::Vector2f(570, 100 + i * 75));
 	}
 }
 

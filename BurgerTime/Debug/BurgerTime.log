@@ -1,6 +1,14 @@
-﻿Build started 3/14/2017 10:19:02 AM.
+﻿Build started 3/15/2017 9:00:42 AM.
      1>Project "C:\Users\17jba02\Documents\GitHub\BurgerTime\BurgerTime\BurgerTime.vcxproj" on node 2 (Build target(s)).
-     1>Link:
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\SFML-2.4.2\include" /Zi /nologo /W3 /WX- /sdl /Od /Oy- /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\BurgerTime.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Level.cpp
+         Level.cpp
+     1>c:\users\17jba02\documents\github\burgertime\burgertime\GameObject.h(24): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\17jba02\documents\github\burgertime\burgertime\GameObject.h(25): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>Level.cpp(22): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Level.cpp(27): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Level.cpp(157): warning C4018: '<' : signed/unsigned mismatch
+       Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\17jba02\Documents\GitHub\BurgerTime\Debug\BurgerTime.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\SFML-2.4.2\lib" "sfml-graphics-d.lib" "sfml-window-d.lib" "sfml-system-d.lib" "sfml-audio-d.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\17jba02\Documents\GitHub\BurgerTime\Debug\BurgerTime.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\17jba02\Documents\GitHub\BurgerTime\Debug\BurgerTime.lib" /MACHINE:X86 Debug\Animation.obj
          Debug\Burger.obj
          Debug\BurgerTime.obj
@@ -16,10 +24,9 @@
          Debug\Sound.obj
          Debug\stdafx.obj
          Debug\Structure.obj
-         LINK : C:\Users\17jba02\Documents\GitHub\BurgerTime\Debug\BurgerTime.exe not found or not built by the last incremental link; performing full link
          BurgerTime.vcxproj -> C:\Users\17jba02\Documents\GitHub\BurgerTime\Debug\BurgerTime.exe
      1>Done Building Project "C:\Users\17jba02\Documents\GitHub\BurgerTime\BurgerTime\BurgerTime.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.42
+Time Elapsed 00:00:01.18

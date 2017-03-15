@@ -11,7 +11,6 @@ public:
 	void play();
 	void pause();
 	void getSound();
-	void pause();
 	void setSound(string);
 	bool music;
 	sf::SoundBuffer buffer;
