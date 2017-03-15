@@ -4,7 +4,7 @@
 class Item : public GameObject
 {
 public:
-	Item();
+	Item(std::string);
 	~Item();
 
 

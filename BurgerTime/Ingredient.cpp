@@ -2,8 +2,9 @@
 #include "Ingredient.h"
 
 
-Ingredient::Ingredient()
+Ingredient::Ingredient(std::string ingredientName) : GameObject(ingredientName)
 {
+	hasWalked = false;
 }
 
 

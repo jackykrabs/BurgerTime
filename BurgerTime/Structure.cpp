@@ -2,7 +2,7 @@
 #include "Structure.h"
 
 
-Structure::Structure()
+Structure::Structure(std::string fileName) : GameObject(fileName)
 {
 }
 

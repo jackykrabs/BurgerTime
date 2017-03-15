@@ -1,10 +1,10 @@
 #pragma once
 #include "GameObject.h"
 
-class Ingredient : GameObject
+class Ingredient : public GameObject
 {
 public:
-	Ingredient();
+	Ingredient(std::string);
 	~Ingredient();
 private:
 	bool hasWalked;

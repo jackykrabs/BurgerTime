@@ -1,10 +1,10 @@
 #pragma once
 #include "GameObject.h"
 
-class Structure : GameObject
+class Structure : public GameObject
 {
 public:
-	Structure();
+	Structure(std::string);
 	~Structure();
 };
 

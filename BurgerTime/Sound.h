@@ -9,6 +9,7 @@ public:
 	Sound();
 	Sound(string, bool);
 	void play();
+	void pause();
 	void getSound();
 	void pause();
 	void setSound(string);

@@ -2,7 +2,7 @@
 #include "Ladder.h"
 
 
-Ladder::Ladder()
+Ladder::Ladder() : Structure("ladder")
 {
 }
 

@@ -1,7 +1,8 @@
 #pragma once
 #include "Structure.h"
 
-class Ladder : Structure
+//ladder is about 75 "units" tall
+class Ladder : public Structure
 {
 public:
 	Ladder();

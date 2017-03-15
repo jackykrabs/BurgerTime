@@ -1,7 +1,7 @@
 #pragma once
 #include "Structure.h"
 
-class Floor : Structure
+class Floor : public Structure
 {
 public:
 	Floor();

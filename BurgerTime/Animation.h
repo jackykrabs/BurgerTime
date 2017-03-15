@@ -42,6 +42,9 @@ public:
 	void flip();
 	~Animation();
 private:
+	bool isStillSprite(std::string); 
+	void initStillSprites();
+	std::vector <std::string> stillSprites;
 	int direction; // 0 is left, 1 is right
 	bool isFlipped;
 	void loadTexture();

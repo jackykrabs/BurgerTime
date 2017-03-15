@@ -9,6 +9,7 @@ Animation::Animation(std::string name, std::string action, int animationSpeed, s
 {
 	isFlipped = false;
 	direction = 0;
+	initStillSprites();
 	texture = new sf::Texture();
 	sprite = new sf::Sprite();
 	this->name = name;
@@ -56,7 +57,7 @@ void Animation::processName()
 //method to load the images into the images vector (just from the name)
 void Animation::loadImages()
 {
-	if (name != "coffee")
+	if (!isStillSprite(name))
 	{
 		for (int i = 1; i <= 14; i++)
 		{
@@ -68,7 +69,7 @@ void Animation::loadImages()
 	}
 	else{
 		sf::Image* temp = new sf::Image();
-		temp->loadFromFile("images\\coffee.png");
+		temp->loadFromFile("images\\" + name + ".png");
 		images.push_back(temp);
 	}
 }
@@ -116,4 +117,30 @@ void Animation::flip()
 {
 	std::cout << "Flipping..." << std::endl;
 	sprite->setScale(sprite->getScale().x*-1, sprite->getScale().y);
+}
+
+//method to initialized the still sprites
+void Animation::initStillSprites()
+{
+	stillSprites.push_back("coffee");
+	stillSprites.push_back("ice_cream_cone");
+	stillSprites.push_back("fries");
+	stillSprites.push_back("top_bun");
+	stillSprites.push_back("lettuce");
+	stillSprites.push_back("burger_patty");
+	stillSprites.push_back("bottom_bun");
+	stillSprites.push_back("floor");
+	stillSprites.push_back("ladder");
+	stillSprites.push_back("blargleTry");
+}
+
+//method to check if the animation is a still sprite
+bool Animation::isStillSprite(std::string name)
+{
+	for (int i = 0; i < stillSprites.size(); i++)
+	{
+		if (stillSprites.at(i) == name)
+			return true;
+	}
+	return false;
 }

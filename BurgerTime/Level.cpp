@@ -5,6 +5,9 @@
 #include <iostream>
 #include <string.h>
 #include "Item.h"
+#include "Ingredient.h"
+#include "Ladder.h"
+#include "Floor.h"
 
 Level::Level(int levelNumber, int lives, int score, sf::RenderWindow *window)
 {
@@ -12,10 +15,10 @@ Level::Level(int levelNumber, int lives, int score, sf::RenderWindow *window)
 	this->levelNumber = levelNumber;
 	buildLevel();
 	player = new Player();
-	for (int i = 0; i < 7; i++)
+	for (int i = 0; i < 5; i++)
 	{
-		gameObjects.push_back(new Item());
-		gameObjects.at(i)->setPosition(sf::Vector2f(i * 75 + 100, i * 75 + 100));
+		gameObjects.push_back(new Ladder());
+		gameObjects.at(i)->setPosition(sf::Vector2f(500, 600 - 75 * i));
 	}
 }
 
