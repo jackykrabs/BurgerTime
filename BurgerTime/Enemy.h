@@ -4,7 +4,8 @@ class Enemy :
 	public GameObject
 {
 public:
-	Enemy();
+	Enemy(std::string);
 	~Enemy();
+	virtual void step();
 };
 

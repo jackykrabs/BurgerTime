@@ -5,8 +5,9 @@
 #include <vector>
 #include <SFML\Graphics.hpp>
 
-Animation::Animation(std::string name, std::string action, int animationSpeed, sf::Vector2f position)
+Animation::Animation(std::string name, std::string action, int animationSpeed)
 {
+	position = sf::Vector2f(500, 500);
 	isFlipped = false;
 	direction = 0;
 	initStillSprites();
@@ -20,7 +21,6 @@ Animation::Animation(std::string name, std::string action, int animationSpeed, s
 	loadTexture();
 	sprite->setTexture(*texture);
 	sprite->setOrigin(sprite->getLocalBounds().width / 2, sprite->getLocalBounds().height / 2);
-	this->position = position;
 }
 
 
@@ -52,6 +52,12 @@ void Animation::processName()
 		maxFrame = 13;
 	}
 	frame = minFrame;
+}
+
+//method to set the origin of the sprite
+void Animation::setOrigin(sf::Vector2f origin)
+{
+	sprite->setOrigin(origin);
 }
 
 //method to load the images into the images vector (just from the name)
@@ -89,6 +95,7 @@ void Animation::loadTexture()
 void Animation::setPosition(double x, double y)
 {
 	sprite->setPosition((float)x,(float) y);
+	this->position = sf::Vector2f(x, y);
 }
 
 //method to set the scale of the object

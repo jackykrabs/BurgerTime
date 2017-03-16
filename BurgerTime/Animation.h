@@ -8,7 +8,7 @@
 class Animation
 {
 public:
-	Animation(std::string, std::string, int, sf::Vector2f);
+	Animation(std::string, std::string, int);
 	void changeName(std::string);
 	//void setPosition(sf::Vector2f position) { this->position = position; }
 	void setPosition(double x, double y);
@@ -34,7 +34,13 @@ public:
 	int getDirection() { return direction; }
 	void setDirection(int direction) { this->direction = direction; }
 
+	void setOrigin(sf::Vector2f);
+
 	sf::Sprite* getSprite() { return sprite; }
+
+	int minFrame;
+	int maxFrame;
+	std::string action;
 
 	void processName();
 	void setScale(sf::Vector2f);
@@ -51,10 +57,7 @@ private:
 	void loadImages();
 	int animationSpeed;
 	int frame;
-	int minFrame;
-	int maxFrame;
 	std::string name;
-	std::string action;
 	sf::Vector2f position;
 	sf::Sprite* sprite;
 	sf::Texture* texture;

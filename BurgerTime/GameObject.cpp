@@ -16,14 +16,14 @@ GameObject::GameObject()
 
 GameObject::GameObject(std::string fileName)
 {
-	animation = new Animation(fileName, "still", 4, sf::Vector2f(500,500));
+	animation = new Animation(fileName, "still", 4);
 	timer = 0;
 
 	sf::Image myImage;
 	myImage.loadFromFile("images//"+fileName);
 	myTexture.loadFromImage(myImage);
 	mySprite.setTexture(myTexture);
-	mySprite.setOrigin(mySprite.getTextureRect().width / 2, mySprite.getTextureRect().height / 2);
+	mySprite.setOrigin(mySprite.getTextureRect().width / 2, mySprite.getTextureRect().height);
 	mySprite.scale(5, 5);
 	animation->setScale(sf::Vector2f(5, 5));
 }

@@ -10,7 +10,7 @@ public:
 	GameObject(std::string);
 	~GameObject();
 
-	void step();
+	virtual void step();
 	void Collision(GameObject);
 	void updateClipart();
 	sf::Sprite mySprite;
