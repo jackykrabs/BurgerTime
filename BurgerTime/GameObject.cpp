@@ -51,6 +51,7 @@ void GameObject::step()
 			animation->setFrame(animation->getFrame() + 1);
 	}
 
+	this->setPosition(getAnimationSprite()->getPosition());
 	//iterate timer
 	timer++;
 }

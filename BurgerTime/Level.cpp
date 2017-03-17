@@ -40,7 +40,6 @@ Level::Level(int levelNumber, int lives, int score, sf::RenderWindow *window)
 	gameObjects.at(14)->setPosition(sf::Vector2f(600, 477));
 	gameObjects.push_back(new Enemy("pickle"));
 	gameObjects.at(15)->setPosition(sf::Vector2f(650, 477));
-	gameObjects.push_back(new PepperShot(gameObjects.at(15)));
 
 }
 
@@ -81,10 +80,20 @@ void Level::gameLogic()
 	//game logic goes here
 	player->step();
 
+	std::cout << gameObjects.size() << std::endl;
 	for (int i = 0; i < gameObjects.size(); i++)
 	{
 		gameObjects.at(i)->move(gameObjects.at(i)->getVelocity());
 		gameObjects.at(i)->step();
+		if (PepperShot* p = dynamic_cast<PepperShot*>(gameObjects.at(i)))
+		{
+			//check if the pepper shot has been on the screen for 20 'hits'
+			if (p->getTimer() == 20)
+			{
+				delete gameObjects.at(i);
+				gameObjects.erase(gameObjects.begin() + i);
+			}
+		}
 	}
 }
 
@@ -153,6 +162,8 @@ void Level::handleEvents(sf::Event event)
 				player->setAction("throwing");
 				player->processName();
 			}
+			gameObjects.push_back(new PepperShot(player));
+	
 			break;
 		}
 		break;

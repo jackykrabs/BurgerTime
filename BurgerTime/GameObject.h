@@ -15,6 +15,8 @@ public:
 	void updateClipart();
 	sf::Sprite mySprite;
 
+	int getTimer() { return timer; }
+
 	void move(sf::Vector2f);
 	sf::Vector2f getVelocity() { return velocity; }
 
