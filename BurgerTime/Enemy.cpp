@@ -6,7 +6,7 @@ Enemy::Enemy(std::string name) : GameObject(name)
 	this->animation->action = "walking";
 	this->animation->minFrame = 0;
 	this->animation->maxFrame = 1;
-	this->setvX(-2);
+	this->setvY(-2);
 	this->animation->setAnimationSpeed(10);
 	this->animation->setScale(sf::Vector2f(3.5,3.5));
 
@@ -27,5 +27,11 @@ void Enemy::step()
 		this->flip();
 
 	if (timer % 90 == 0)
-		this->setvX(this->getVelocity().x * -1);
+		this->setvY(this->getVelocity().y * -1);
+	if (timer >= 600)
+	{
+		this->setvY(0);
+		this->animation->minFrame = 2;
+		this->animation->maxFrame = 2;
+	}
 }

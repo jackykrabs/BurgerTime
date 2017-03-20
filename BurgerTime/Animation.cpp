@@ -36,6 +36,11 @@ void Animation::processName()
 		minFrame = 5;
 		maxFrame = 6;
 	}
+	else if (action == "stillSide")
+	{
+		minFrame = 5;
+		maxFrame = 5;
+	}
 	else if (action == "still")
 	{
 		minFrame = 0;
@@ -52,6 +57,7 @@ void Animation::processName()
 		maxFrame = 13;
 	}
 	frame = minFrame;
+	sprite->setOrigin(sprite->getLocalBounds().width / 2, sprite->getLocalBounds().height / 2);
 }
 
 //method to set the origin of the sprite

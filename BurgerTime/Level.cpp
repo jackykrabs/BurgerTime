@@ -110,7 +110,6 @@ void Level::handleEvents(sf::Event event)
 		switch (event.key.code)
 		{
 		case sf::Keyboard::Down:
-			std::cout << "Down was pressed" << std::endl;
 			player->setvY(5);
 			if (player->getAction() != "climbing")
 			{
@@ -119,7 +118,6 @@ void Level::handleEvents(sf::Event event)
 			}
 			break;
 		case sf::Keyboard::Up:
-			std::cout << "Up was pressed" << std::endl;
 			player->setvY(-5);
 			if (player->getAction() != "climbing")
 			{
@@ -133,7 +131,6 @@ void Level::handleEvents(sf::Event event)
 				player->setAction("walking");
 				player->processName();
 			}
-			std::cout << "Left was pressed" << std::endl;
 			player->setvX(-5);
 			if (player->getDirection() == 1)
 			{
@@ -147,7 +144,6 @@ void Level::handleEvents(sf::Event event)
 				player->setAction("walking");
 				player->processName();
 			}
-			std::cout << "Right was pressed" << std::endl;
 			player->setvX(5);
 			if (player->getDirection() == 0)
 			{
@@ -156,7 +152,6 @@ void Level::handleEvents(sf::Event event)
 			}
 			break;
 		case sf::Keyboard::Return:
-			std::cout << "Pepper shot!" << std::endl;
 			if (player->getAction() != "throwing")
 			{
 				player->setAction("throwing");
@@ -172,9 +167,14 @@ void Level::handleEvents(sf::Event event)
 	case sf::Event::KeyReleased:
 		player->setvX(0);
 		player->setvY(0);
-		if (player->getAction() != "still")
+		if (player->getAction() == "climbing")
 		{
 			player->setAction("still");
+			player->processName();
+		}
+		else if (player->getAction() != "stillSide")
+		{
+			player->setAction("stillSide");
 			player->processName();
 		}
 		break;

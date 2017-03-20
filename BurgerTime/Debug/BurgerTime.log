@@ -1,10 +1,14 @@
-﻿Build started 3/17/2017 10:00:32 AM.
+﻿Build started 3/20/2017 9:31:11 AM.
      1>Project "C:\Users\17jba02\Documents\GitHub\BurgerTime\BurgerTime\BurgerTime.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\SFML-2.4.2\include" /Zi /nologo /W3 /WX- /sdl /Od /Oy- /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\BurgerTime.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt PepperShot.cpp
-         PepperShot.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\SFML-2.4.2\include" /Zi /nologo /W3 /WX- /sdl /Od /Oy- /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\BurgerTime.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Level.cpp
+         Level.cpp
      1>c:\users\17jba02\documents\github\burgertime\burgertime\GameObject.h(26): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
      1>c:\users\17jba02\documents\github\burgertime\burgertime\GameObject.h(27): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>Level.cpp(24): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Level.cpp(29): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Level.cpp(84): warning C4018: '<' : signed/unsigned mismatch
+     1>Level.cpp(189): warning C4018: '<' : signed/unsigned mismatch
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\17jba02\Documents\GitHub\BurgerTime\Debug\BurgerTime.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\SFML-2.4.2\lib" "sfml-graphics-d.lib" "sfml-window-d.lib" "sfml-system-d.lib" "sfml-audio-d.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\17jba02\Documents\GitHub\BurgerTime\Debug\BurgerTime.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\17jba02\Documents\GitHub\BurgerTime\Debug\BurgerTime.lib" /MACHINE:X86 Debug\Animation.obj
          Debug\Burger.obj
@@ -27,4 +31,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.09
+Time Elapsed 00:00:00.98
