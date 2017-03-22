@@ -57,18 +57,19 @@ void Level::gameLogic()
 
 	for (int i = 0; i < gameObjects.size(); i++)
 	{
+		gameObjects.at(i)->move(gameObjects.at(i)->getVelocity());
+		gameObjects.at(i)->step();
+
 		if (Enemy* e = dynamic_cast<Enemy*>(gameObjects.at(i)))
 		{
-			e->findPlayer(player);
+			if (e->getTimer() % 60 == 0)
+				e->findPlayer(player);
 		}
 	}
 	//method to kill off all gameobjects that need killing off
 	for (int i = 0; i < gameObjects.size(); i++)
 	{
-		gameObjects.at(i)->move(gameObjects.at(i)->getVelocity());
-		gameObjects.at(i)->step();
-
-		if (gameObjects.at(i)->getDeathTimer() == gameObjects.at(i)->getDeathCountDown()) //todo: make this value a member of G.O)
+		if (gameObjects.at(i)->getDeathTimer() == gameObjects.at(i)->getDeathCountDown()) 
 		{
 			delete gameObjects.at(i);
 			gameObjects.erase(gameObjects.begin() + i);

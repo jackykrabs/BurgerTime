@@ -10,7 +10,6 @@ Enemy::Enemy(std::string name) : GameObject(name)
 	this->animation->action = "walking";
 	this->animation->minFrame = 0;
 	this->animation->maxFrame = 1;
-	this->setvY(-2);
 	this->animation->setAnimationSpeed(10);
 	this->animation->setScale(sf::Vector2f(3.5,3.5));
 }
@@ -32,18 +31,28 @@ void Enemy::step()
 	if (timer % 90 == 0)
 		this->setvY(this->getVelocity().y * -1);
 
-	if (timer % 200 == 0)
-	{
-		setvY(0);
-		die();
-	}
 }
 
 //method to determine what the best move is to find the player
 void Enemy::findPlayer(Player* p)
 {
 	sf::Vector2f positionDifference = position - p->getPosition();
-	std::cout << positionDifference.x << std::endl;
 
 	//TODO: Make it so the enemy gets closer to the player based on the positionDiffrence
+	if (std::abs(positionDifference.x) > std::abs(positionDifference.y))
+	{
+		this->setvY(0);
+		if (positionDifference.x > 0)
+			this->setvX(-2);
+		else
+			this->setvX(2);
+	}
+	else
+	{
+		this->setvX(0);
+		if (positionDifference.y > 0)
+			this->setvY(-2);
+		else
+			this->setvY(2);
+	}
 }

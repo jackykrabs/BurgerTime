@@ -9,6 +9,8 @@ Animation::Animation(std::string name, std::string action, int animationSpeed)
 {
 	position = sf::Vector2f(500, 500);
 	isFlipped = false;
+	setMinFrame(0);
+	setMaxFrame(0);
 	direction = 0;
 	initStillSprites();
 	texture = new sf::Texture();
@@ -144,7 +146,6 @@ void Animation::initStillSprites()
 	stillSprites.push_back("bottom_bun");
 	stillSprites.push_back("floor");
 	stillSprites.push_back("ladder");
-	stillSprites.push_back("blargleTry");
 }
 
 //method to check if the animation is a still sprite
