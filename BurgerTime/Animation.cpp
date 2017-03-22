@@ -5,7 +5,7 @@
 #include <vector>
 #include <SFML\Graphics.hpp>
 
-Animation::Animation(std::string name, std::string action, int animationSpeed)
+Animation::Animation(std::string name, int animationSpeed)
 {
 	position = sf::Vector2f(500, 500);
 	isFlipped = false;
@@ -16,13 +16,12 @@ Animation::Animation(std::string name, std::string action, int animationSpeed)
 	texture = new sf::Texture();
 	sprite = new sf::Sprite();
 	this->name = name;
-	this->action = action;
 	this->animationSpeed = animationSpeed;
-	processName();
+	updateOrigin();
 	loadImages();
 	loadTexture();
 	sprite->setTexture(*texture);
-	sprite->setOrigin(sprite->getLocalBounds().width / 2, sprite->getLocalBounds().height / 2);
+	updateOrigin();
 }
 
 
@@ -31,34 +30,8 @@ Animation::~Animation()
 }
 
 //method to set the proper min and max frame based on the animation name
-void Animation::processName()
+void Animation::updateOrigin()
 {
-	if (action == "walking")
-	{
-		minFrame = 5;
-		maxFrame = 6;
-	}
-	else if (action == "stillSide")
-	{
-		minFrame = 5;
-		maxFrame = 5;
-	}
-	else if (action == "still")
-	{
-		minFrame = 0;
-		maxFrame = 0;
-	}
-	else if (action == "throwing")
-	{
-		minFrame = 11;
-		maxFrame = 11;
-	}
-	else if (action == "climbing")
-	{
-		minFrame = 12;
-		maxFrame = 13;
-	}
-	frame = minFrame;
 	sprite->setOrigin(sprite->getLocalBounds().width / 2, sprite->getLocalBounds().height / 2);
 }
 
@@ -134,7 +107,7 @@ void Animation::flip()
 	sprite->setScale(sprite->getScale().x*-1, sprite->getScale().y);
 }
 
-//method to initialized the still sprites
+//method to initialized the still sprites 
 void Animation::initStillSprites()
 {
 	stillSprites.push_back("coffee");

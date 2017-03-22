@@ -95,7 +95,7 @@ void Level::handleEvents(sf::Event event)
 			if (player->getAction() != "climbing")
 			{
 				player->setAction("climbing");
-				player->processName();
+				player->processAction();
 			}
 			break;
 		case sf::Keyboard::Up:
@@ -103,14 +103,14 @@ void Level::handleEvents(sf::Event event)
 			if (player->getAction() != "climbing")
 			{
 				player->setAction("climbing");
-				player->processName();
+				player->processAction();
 			}
 			break;
 		case sf::Keyboard::Left:
 			if (player->getAction() != "walking")
 			{
 				player->setAction("walking");
-				player->processName();
+				player->processAction();
 			}
 			player->setvX(-5);
 			if (player->getDirection() == 1)
@@ -123,7 +123,7 @@ void Level::handleEvents(sf::Event event)
 			if (player->getAction() != "walking")
 			{
 				player->setAction("walking");
-				player->processName();
+				player->processAction();
 			}
 			player->setvX(5);
 			if (player->getDirection() == 0)
@@ -136,7 +136,7 @@ void Level::handleEvents(sf::Event event)
 			if (player->getAction() != "throwing")
 			{
 				player->setAction("throwing");
-				player->processName();
+				player->processAction();
 			}
 			gameObjects.push_back(new PepperShot(player));
 			break;
@@ -160,12 +160,12 @@ void Level::handleEvents(sf::Event event)
 		if (player->getAction() == "climbing")
 		{
 			player->setAction("still");
-			player->processName();
+			player->processAction();
 		}
 		else if (player->getAction() != "stillSide")
 		{
 			player->setAction("stillSide");
-			player->processName();
+			player->processAction();
 		}
 		break;
 	}

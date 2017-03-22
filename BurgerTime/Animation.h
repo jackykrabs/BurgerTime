@@ -8,14 +8,12 @@
 class Animation
 {
 public:
-	Animation(std::string, std::string, int);
+	Animation(std::string, int);
 	void changeName(std::string);
 	//void setPosition(sf::Vector2f position) { this->position = position; }
 	void setPosition(double x, double y);
 
 	//getters and setters
-	std::string getAction() { return action; }
-	void setAction(std::string action) { this->action = action; }
 
 	int getAnimationSpeed() { return animationSpeed; }
 	void setAnimationSpeed(int animationSpeed) { this->animationSpeed = animationSpeed; }
@@ -40,9 +38,8 @@ public:
 
 	int minFrame;
 	int maxFrame;
-	std::string action;
 
-	void processName();
+	void updateOrigin();
 	void setScale(sf::Vector2f);
 	void move(sf::Vector2f);
 	void flip();

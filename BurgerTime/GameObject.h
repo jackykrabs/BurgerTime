@@ -42,10 +42,6 @@ public:
 
 	void flip() { animation->flip(); }
 
-	std::string getAction() { return animation->getAction(); }
-	void setAction(std::string action){ animation->setAction(action); }
-
-	void processName() { animation->processName(); }
 	sf::Sprite* getAnimationSprite() { return animation->getSprite(); }
 protected:
 	bool toDie;

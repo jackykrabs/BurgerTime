@@ -7,7 +7,6 @@ Enemy::Enemy(std::string name) : GameObject(name)
 {
 	this->setPosition(sf::Vector2f(rand() % 1500, rand() % 1500));
 	this->deathCountDown = 20;
-	this->animation->action = "walking";
 	this->animation->minFrame = 0;
 	this->animation->maxFrame = 1;
 	this->animation->setAnimationSpeed(10);
