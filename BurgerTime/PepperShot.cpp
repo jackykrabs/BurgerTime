@@ -4,6 +4,8 @@
 //create a new pepper shot at the location of 'o'
 PepperShot::PepperShot(GameObject* o) : GameObject("pepper_shot")
 {
+	this->deathCountDown = 20;
+	this->toDie = true;
 	this->animation->setMinFrame(0);
 	this->animation->setMaxFrame(3);
 	this->animation->setAnimationSpeed(6);

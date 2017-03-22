@@ -15,7 +15,15 @@ public:
 	void updateClipart();
 	sf::Sprite mySprite;
 
+	virtual void die();
+
+	int getDeathCountDown() { return deathCountDown;  }
+
+	void setToDie(bool toDie) { this->toDie = toDie; }
+	bool getToDie() { return toDie; }
+
 	int getTimer() { return timer; }
+	int getDeathTimer() { return deathTimer; }
 
 	void move(sf::Vector2f);
 	sf::Vector2f getVelocity() { return velocity; }
@@ -40,12 +48,14 @@ public:
 	void processName() { animation->processName(); }
 	sf::Sprite* getAnimationSprite() { return animation->getSprite(); }
 protected:
+	bool toDie;
 	Animation* animation;
 	sf::Texture myTexture;
 	double vX;
 	double vY;
-
+	int deathCountDown;
 	int timer;
+	int deathTimer;
 	sf::Vector2f velocity;
 	sf::Vector2f position;
 	double x;

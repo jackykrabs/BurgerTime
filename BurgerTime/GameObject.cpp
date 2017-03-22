@@ -18,6 +18,10 @@ GameObject::GameObject(std::string fileName)
 {
 	animation = new Animation(fileName, "still", 4);
 	timer = 0;
+	deathTimer = 0;
+
+	//default value of death countdown
+	deathCountDown = 80;
 
 	sf::Image myImage;
 	myImage.loadFromFile("images//"+fileName);
@@ -54,6 +58,17 @@ void GameObject::step()
 	this->setPosition(getAnimationSprite()->getPosition());
 	//iterate timer
 	timer++;
+	if (toDie)
+		deathTimer++;
+}
+
+//method to begin the dying process
+void GameObject::die()
+{
+	toDie = true;
+	animation->minFrame = 7;
+	animation->maxFrame = 10;
+	animation->setFrame(7);
 }
 
 //set the overall position

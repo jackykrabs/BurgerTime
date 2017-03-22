@@ -16,31 +16,6 @@ Level::Level(int levelNumber, int lives, int score, sf::RenderWindow *window)
 	this->window = window;
 	this->levelNumber = levelNumber;
 	buildLevel();
-	player = new Player();
-
-	for (int i = 0; i < 5; i++)
-	{
-		gameObjects.push_back(new Floor());
-		gameObjects.at(i)->setPosition(sf::Vector2f(500 + 56 * i, 500));
-	}
-	for (int i = 5; i < 10; i++)
-	{
-		gameObjects.push_back(new Ladder());
-		gameObjects.at(i)->setPosition(sf::Vector2f(570, 100 + i * 75));
-	}
-	gameObjects.push_back(new Item("ice_cream_cone"));
-	gameObjects.at(10)->setPosition(sf::Vector2f(710, 477));
-	gameObjects.push_back(new Item("fries"));
-	gameObjects.at(11)->setPosition(sf::Vector2f(660, 477));
-	gameObjects.push_back(new Item("coffee"));
-	gameObjects.at(12)->setPosition(sf::Vector2f(610, 477));
-	gameObjects.push_back(new Enemy("egg"));
-	gameObjects.at(13)->setPosition(sf::Vector2f(550, 477)); 
-	gameObjects.push_back(new Enemy("hotdog"));
-	gameObjects.at(14)->setPosition(sf::Vector2f(600, 477));
-	gameObjects.push_back(new Enemy("pickle"));
-	gameObjects.at(15)->setPosition(sf::Vector2f(650, 477));
-
 }
 
 Level::~Level()
@@ -76,25 +51,30 @@ void Level::play()
 //no preconditions or postconditions
 void Level::gameLogic()
 {
+	//player logic
 	player->move(player->getVelocity());
-	//game logic goes here
 	player->step();
 
-	std::cout << gameObjects.size() << std::endl;
+	for (int i = 0; i < gameObjects.size(); i++)
+	{
+		if (Enemy* e = dynamic_cast<Enemy*>(gameObjects.at(i)))
+		{
+			e->findPlayer(player);
+		}
+	}
+	//method to kill off all gameobjects that need killing off
 	for (int i = 0; i < gameObjects.size(); i++)
 	{
 		gameObjects.at(i)->move(gameObjects.at(i)->getVelocity());
 		gameObjects.at(i)->step();
-		if (PepperShot* p = dynamic_cast<PepperShot*>(gameObjects.at(i)))
+
+		if (gameObjects.at(i)->getDeathTimer() == gameObjects.at(i)->getDeathCountDown()) //todo: make this value a member of G.O)
 		{
-			//check if the pepper shot has been on the screen for 20 'hits'
-			if (p->getTimer() == 20)
-			{
-				delete gameObjects.at(i);
-				gameObjects.erase(gameObjects.begin() + i);
-			}
+			delete gameObjects.at(i);
+			gameObjects.erase(gameObjects.begin() + i);
 		}
 	}
+
 }
 
 //handle the events (key input, close screen, etc)
@@ -158,8 +138,17 @@ void Level::handleEvents(sf::Event event)
 				player->processName();
 			}
 			gameObjects.push_back(new PepperShot(player));
-	
 			break;
+
+		//temp/fun methods to spawn in a bunch of enemies
+		case sf::Keyboard::H:
+			gameObjects.push_back(new Enemy("hotdog"));
+			break;
+		case sf::Keyboard::P:
+			gameObjects.push_back(new Enemy("pickle"));
+			break;
+		case sf::Keyboard::E:
+			gameObjects.push_back(new Enemy("egg"));
 		}
 		break;
 
@@ -227,7 +216,30 @@ void Level::buildLevel()
 //no preconditions/postconditions
 void Level::buildLevelOne()
 {
-	std::cout << "level one" << std::endl;
+	player = new Player();
+
+	for (int i = 0; i < 5; i++)
+	{
+		gameObjects.push_back(new Floor());
+		gameObjects.at(i)->setPosition(sf::Vector2f(500 + 56 * i, 500));
+	}
+	for (int i = 5; i < 10; i++)
+	{
+		gameObjects.push_back(new Ladder());
+		gameObjects.at(i)->setPosition(sf::Vector2f(570, 100 + i * 75));
+	}
+	gameObjects.push_back(new Item("ice_cream_cone"));
+	gameObjects.at(10)->setPosition(sf::Vector2f(710, 477));
+	gameObjects.push_back(new Item("fries"));
+	gameObjects.at(11)->setPosition(sf::Vector2f(660, 477));
+	gameObjects.push_back(new Item("coffee"));
+	gameObjects.at(12)->setPosition(sf::Vector2f(610, 477));
+	gameObjects.push_back(new Enemy("egg"));
+	gameObjects.at(13)->setPosition(sf::Vector2f(550, 477));
+	gameObjects.push_back(new Enemy("hotdog"));
+	gameObjects.at(14)->setPosition(sf::Vector2f(600, 477));
+	gameObjects.push_back(new Enemy("pickle"));
+	gameObjects.at(15)->setPosition(sf::Vector2f(650, 477));
 }
 
 //build the second level
