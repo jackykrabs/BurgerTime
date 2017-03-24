@@ -1,0 +1,85 @@
+﻿Build started 3/24/2017 8:36:37 AM.
+     1>Project "C:\Users\17jba02\Documents\GitHub\BurgerTime\BurgerTime\BurgerTime.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\SFML-2.4.2\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Release\BurgerTime.pch" /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Ladder.cpp stdafx.cpp
+         Ladder.cpp
+     1>c:\users\17jba02\documents\github\burgertime\burgertime\GameObject.h(34): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\17jba02\documents\github\burgertime\burgertime\GameObject.h(35): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         stdafx.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\SFML-2.4.2\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Release\BurgerTime.pch" /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Animation.cpp Burger.cpp BurgerTime.cpp Enemy.cpp Floor.cpp GameObject.cpp GameState.cpp Ingredient.cpp Item.cpp Level.cpp PepperShot.cpp Player.cpp Sound.cpp Structure.cpp
+         Animation.cpp
+     1>Animation.cpp(79): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>Animation.cpp(127): warning C4018: '<' : signed/unsigned mismatch
+         Burger.cpp
+     1>c:\users\17jba02\documents\github\burgertime\burgertime\GameObject.h(34): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\17jba02\documents\github\burgertime\burgertime\GameObject.h(35): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         BurgerTime.cpp
+     1>c:\users\17jba02\documents\github\burgertime\burgertime\GameObject.h(34): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\17jba02\documents\github\burgertime\burgertime\GameObject.h(35): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         Enemy.cpp
+     1>c:\users\17jba02\documents\github\burgertime\burgertime\GameObject.h(34): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\17jba02\documents\github\burgertime\burgertime\GameObject.h(35): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>Enemy.cpp(8): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+         Floor.cpp
+     1>c:\users\17jba02\documents\github\burgertime\burgertime\GameObject.h(34): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\17jba02\documents\github\burgertime\burgertime\GameObject.h(35): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         GameObject.cpp
+     1>c:\users\17jba02\documents\github\burgertime\burgertime\GameObject.h(34): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\17jba02\documents\github\burgertime\burgertime\GameObject.h(35): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>GameObject.cpp(30): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
+     1>GameObject.cpp(30): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>GameObject.cpp(86): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>GameObject.cpp(94): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         GameState.cpp
+     1>c:\users\17jba02\documents\github\burgertime\burgertime\GameObject.h(34): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\17jba02\documents\github\burgertime\burgertime\GameObject.h(35): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         Ingredient.cpp
+     1>c:\users\17jba02\documents\github\burgertime\burgertime\GameObject.h(34): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\17jba02\documents\github\burgertime\burgertime\GameObject.h(35): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         Item.cpp
+     1>c:\users\17jba02\documents\github\burgertime\burgertime\GameObject.h(34): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\17jba02\documents\github\burgertime\burgertime\GameObject.h(35): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         Level.cpp
+     1>c:\users\17jba02\documents\github\burgertime\burgertime\GameObject.h(34): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\17jba02\documents\github\burgertime\burgertime\GameObject.h(35): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>Level.cpp(58): warning C4018: '<' : signed/unsigned mismatch
+     1>Level.cpp(70): warning C4018: '<' : signed/unsigned mismatch
+     1>Level.cpp(179): warning C4018: '<' : signed/unsigned mismatch
+     1>Level.cpp(225): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Level.cpp(230): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+         PepperShot.cpp
+     1>c:\users\17jba02\documents\github\burgertime\burgertime\GameObject.h(34): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\17jba02\documents\github\burgertime\burgertime\GameObject.h(35): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         Player.cpp
+     1>c:\users\17jba02\documents\github\burgertime\burgertime\GameObject.h(34): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\17jba02\documents\github\burgertime\burgertime\GameObject.h(35): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         Sound.cpp
+         Structure.cpp
+     1>c:\users\17jba02\documents\github\burgertime\burgertime\GameObject.h(34): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\17jba02\documents\github\burgertime\burgertime\GameObject.h(35): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\17jba02\Documents\GitHub\BurgerTime\Release\BurgerTime.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"C:\SFML-2.4.2\lib" "sfml-graphics.lib" "sfml-window.lib" "sfml-system.lib" "sfml-audio.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\17jba02\Documents\GitHub\BurgerTime\Release\BurgerTime.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\17jba02\Documents\GitHub\BurgerTime\Release\BurgerTime.lib" /MACHINE:X86 /SAFESEH Release\Animation.obj
+         Release\Burger.obj
+         Release\BurgerTime.obj
+         Release\Enemy.obj
+         Release\Floor.obj
+         Release\GameObject.obj
+         Release\GameState.obj
+         Release\Ingredient.obj
+         Release\Item.obj
+         Release\Ladder.obj
+         Release\Level.obj
+         Release\PepperShot.obj
+         Release\Player.obj
+         Release\Sound.obj
+         Release\stdafx.obj
+         Release\Structure.obj
+     1>LINK : warning C4727: PCH named c:\users\17jba02\documents\github\burgertime\burgertime\release\burgertime.pch with same timestamp found in C:\Users\17jba02\Documents\GitHub\BurgerTime\BurgerTime\Release\stdafx.obj and C:\Users\17jba02\Documents\GitHub\BurgerTime\BurgerTime\Release\Ladder.obj.  Using first PCH.
+         Generating code
+         Finished generating code
+         BurgerTime.vcxproj -> C:\Users\17jba02\Documents\GitHub\BurgerTime\Release\BurgerTime.exe
+     1>Done Building Project "C:\Users\17jba02\Documents\GitHub\BurgerTime\BurgerTime\BurgerTime.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:09.64

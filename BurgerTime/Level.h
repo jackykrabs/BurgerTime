@@ -9,8 +9,10 @@ class Level
 public:
 	Level(int, int, int, sf::RenderWindow*);
 	~Level();
+	int getScore() { return score; }
 	void play();
 private:
+	int score;
 	bool levelComplete = false;
 	sf::RenderWindow* window;
 	int levelNumber;
@@ -27,8 +29,15 @@ private:
 	sf::Clock gameClock;
 	sf::Time gameTime;
 
+	void quadTree(int, int, int, int, std::vector<GameObject*>);
+	bool overlap(GameObject *, GameObject *);
+
+	sf::Font font;
+	sf::Text scoreLabel;
+	sf::Text levelLabel;
 	//test gameobject
 	Player* player;
 	std::vector <GameObject*> gameObjects;
+	std::vector <GameObject*> allObjects;
 };
 

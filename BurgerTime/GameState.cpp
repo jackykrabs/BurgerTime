@@ -31,6 +31,7 @@ void GameState::playLevel()
 {
 	std::cout << "Level: " << levelNumber << std::endl;
 	level->play();
+	this->score = level->getScore();
 	goToNextLevel();
 	delete level;
 	level = new Level(levelNumber, lives, score, &gameWindow);
