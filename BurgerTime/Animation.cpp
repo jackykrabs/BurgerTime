@@ -103,7 +103,6 @@ void Animation::setFrame(int frame)
 //method to flip GO
 void Animation::flip()
 {
-	std::cout << "Flipping..." << std::endl;
 	sprite->setScale(sprite->getScale().x*-1, sprite->getScale().y);
 }
 

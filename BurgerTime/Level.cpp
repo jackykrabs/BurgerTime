@@ -17,17 +17,24 @@ Level::Level(int levelNumber, int lives, int score, sf::RenderWindow *window)
 	this->window = window;
 	this->levelNumber = levelNumber;
 	this->score = score;
+	buildLevel();
+	player->setShots(5);
 
 	//set up the display information
 	font.loadFromFile("Pixeled.ttf");
+
+	shotsLabel.setFont(font);
+	shotsLabel.setPosition(400, 50);
+	shotsLabel.setString("Shots: " + std::to_string(player->getShots()));
+
 	scoreLabel.setFont(font);
 	scoreLabel.setPosition(750, 50);
 	scoreLabel.setString("Score: " + std::to_string(score));
+
 	levelLabel.setFont(font);
 	levelLabel.setPosition(100, 50);
 	levelLabel.setString("Level: " + std::to_string(levelNumber));
 
-	buildLevel();
 }
 
 Level::~Level()
@@ -68,9 +75,9 @@ void Level::play()
 //no preconditions or postconditions
 void Level::gameLogic()
 {
-	std::cout << "ooga booga" << std::endl;
 	//update label
 	scoreLabel.setString("Score: " + std::to_string(score));
+	shotsLabel.setString("Shots: " + std::to_string(player->getShots()));
 
 	//player logic
 	player->move(player->getVelocity());
@@ -160,9 +167,13 @@ void Level::handleEvents(sf::Event event)
 			{
 				player->setAction("throwing");
 				player->processAction();
+				if (player->getShots() != 0)
+				{
+					gameObjects.push_back(new PepperShot(player));
+					player->incrimentShots(-1);
+					score += 50;
+				}
 			}
-			gameObjects.push_back(new PepperShot(player));
-			score += 50;
 			break;
 
 		//temp/fun methods to spawn in a bunch of enemies
@@ -200,6 +211,7 @@ void Level::handleEvents(sf::Event event)
 void Level::drawObjects()
 {
 	window->clear();
+	window->draw(shotsLabel);
 	window->draw(levelLabel);
 	window->draw(scoreLabel);
 	for (int i = 0; i < gameObjects.size(); i++)

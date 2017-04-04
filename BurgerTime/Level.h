@@ -33,6 +33,7 @@ private:
 	bool overlap(GameObject *, GameObject *);
 
 	sf::Font font;
+	sf::Text shotsLabel;
 	sf::Text scoreLabel;
 	sf::Text levelLabel;
 	//test gameobject
