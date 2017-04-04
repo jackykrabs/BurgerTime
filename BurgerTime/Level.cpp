@@ -18,7 +18,7 @@ Level::Level(int levelNumber, int lives, int score, sf::RenderWindow *window)
 	this->levelNumber = levelNumber;
 	this->score = score;
 	buildLevel();
-	player->setShots(5);
+	player->setShots(200);
 
 	//set up the display information
 	font.loadFromFile("Pixeled.ttf");
@@ -330,7 +330,13 @@ void Level::collisionCheck(std::vector<GameObject*> l)
 			{
 				if (PepperShot* p = dynamic_cast<PepperShot*>(l[x]))
 				{
-					l[n]->setToDie(true);
+					if (Enemy* e = dynamic_cast<Enemy*>(l[n]))
+						e->setToDie(true);
+				}
+				else if (Player* p = dynamic_cast<Player*>(l[x]))
+				{
+					if (Item* i = dynamic_cast<Item*>(l[n]))
+						i->setToDie(true);
 				}
 				break;
 			}
