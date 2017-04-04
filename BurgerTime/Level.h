@@ -29,7 +29,7 @@ private:
 	sf::Clock gameClock;
 	sf::Time gameTime;
 
-	void quadTree(int, int, int, int, std::vector<GameObject*>);
+	void collisionCheck(std::vector<GameObject*>);
 	bool overlap(GameObject *, GameObject *);
 
 	sf::Font font;

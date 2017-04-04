@@ -83,7 +83,7 @@ void Level::gameLogic()
 	player->move(player->getVelocity());
 	player->step();
 
-	quadTree(0, 0, window->getSize().x, window->getSize().y, allObjects);
+	collisionCheck(allObjects);
 
 	for (int i = 0; i < gameObjects.size(); i++)
 	{
@@ -317,169 +317,24 @@ void Level::buildLevelSix()
 
 }
 
-void Level::quadTree(int x_, int y_, int xLen, int yLen, std::vector<GameObject*> l)
+
+void Level::collisionCheck(std::vector<GameObject*> l)
 {
-	float tmpWidth; float tmpHeight;
-
-	bool sideQuads[4]; // Used to check which quadrants are on screen edge
-
-	//Color List
-	sf::Color cList[6] =
+	for (int x = 0; x < l.size(); x++)
 	{
-		sf::Color::Green, sf::Color::Yellow, sf::Color::Cyan,
-		sf::Color::Red, sf::Color::Blue, sf::Color::Magenta
-	};
-
-	std::vector<GameObject*> quad[4];
-	//std::vector<sf::Vector2i*> qDir[4];
-	//int quadCoord[4][2];
-
-	//quadCoord[0][x] = xLength / 2; quadCoord[0][y] = yLength / 2;
-	sf::RectangleShape xRekt(sf::Vector2f(xLen, 1));
-	sf::RectangleShape yRekt(sf::Vector2f(1, yLen));
-
-	xRekt.setOrigin(xLen / 2, .5); yRekt.setOrigin(.5, yLen / 2);
-
-	xRekt.setPosition(x_ + (xLen / 2), y_ + (yLen / 2)); yRekt.setPosition(x_ + (xLen / 2), y_ + (yLen / 2));
-
-	window->draw(xRekt); window->draw(yRekt);
-
-
-	for (int i = 0; i < l.size(); i++)
-	{
-		tmpWidth = l[i]->getAnimationSprite()->getLocalBounds().width;
-		tmpHeight = l[i]->getAnimationSprite()->getLocalBounds().height;
-
-		//Quadrant 1
-		if ((l[i]->getPosition().x + (tmpWidth / 2)) >(x_ + (xLen / 2)) && (l[i]->getPosition().y - (tmpHeight / 2)) < (y_ + (yLen / 2)))
+		for (int n = 0; n < l.size(); n++)
 		{
-			quad[0].push_back(l[i]);
-		}
-		//Quadrant 2
-		if ((l[i]->getPosition().x - (tmpWidth / 2)) < (x_ + (xLen / 2)) && (l[i]->getPosition().y - (tmpHeight / 2)) < (y_ + (yLen / 2)))
-		{
-			quad[1].push_back(l[i]);
-		}
-		//Quadrant 3
-		if ((l[i]->getPosition().x - (tmpWidth / 2)) < (x_ + (xLen / 2)) && (l[i]->getPosition().y + (tmpHeight / 2)) > (y_ + (yLen / 2)))
-		{
-			quad[2].push_back(l[i]);
-		}
-		//Quadrant 4
-		if ((l[i]->getPosition().x + (tmpWidth / 2)) > (x_ + (xLen / 2)) && (l[i]->getPosition().y + (tmpHeight / 2)) > (y_ + (yLen / 2)))
-		{
-			quad[3].push_back(l[i]);
-		}
-	}
 
-	for (int i = 0; i < 4; i++)
-	{
-		if (quad[i].size() > 4)
-		{
-			//std::cout << "QUADSELECTED: " << i << std::endl << std::endl;
-
-			if (i == 0)
+			if (x != n && //Comparison to itself would yield a collision
+				overlap(l[x], l[n]) == true)
 			{
-				quadTree(x_ + (xLen / 2), y_, xLen / 2, yLen / 2, quad[0]);
-			}
-			else if (i == 1)
-			{
-				quadTree(x_, y_, xLen / 2, yLen / 2, quad[1]);
-			}
-			else if (i == 2)
-			{
-				quadTree(x_, y_ + (yLen / 2), xLen / 2, yLen / 2, quad[2]);
-			}
-			else if (i == 3)
-			{
-				quadTree(x_ + (xLen / 2), y_ + (yLen / 2), xLen / 2, yLen / 2, quad[3]);
-			}
-		}
-	}
-
-	for (int x = 0; x < 4; x++)
-	{
-
-		if (quad[x].size() > 1 && quad[x].size() < 5)
-		{
-			for (int n = 0; n < quad[x].size(); n++)
-			{
-				for (int i = 0; i < quad[x].size(); i++)
+				if (PepperShot* p = dynamic_cast<PepperShot*>(l[x]))
 				{
-
-					if (i != n && //Comparison to itself would yield a collision
-						overlap(quad[x][n], quad[x][i]) == true)
-					{
-						if (PepperShot* p = dynamic_cast<PepperShot*>(quad[x][n]))
-						{
-							quad[x][i]->setToDie(true);
-						}
-						break;
-					}
-
+					l[n]->setToDie(true);
 				}
+				break;
 			}
-		}
-	}
 
-	for (int i = 0; i < 4; i++)
-		sideQuads[i] = false;
-
-	//Constraints touch left side -> quadrant 2 and 3 on screen edge
-	if (x_ == 0)
-	{
-		sideQuads[1] = true; sideQuads[2] = true;
-	}
-	//Constraints touch bottom -> quadrant 1 and 2 on screen edge
-	if (y_ == 0)
-	{
-		sideQuads[0] = true; sideQuads[1] = true;
-	}
-	//Constraints touch right side -> quadrant 1 and 4 on screen edge
-	if (xLen + x_ == window->getSize().x)
-	{
-		sideQuads[0] = true; sideQuads[3] = true;
-	}
-	//Constraints touch bottom -> quadrant 3 and 4 on screen edge
-	if (yLen + y_ == window->getSize().y)
-	{
-		sideQuads[2] = true; sideQuads[3] = true;
-	}
-
-	for (int x = 0; x < 4; x++)
-	{
-
-		if (sideQuads[x] == true)
-		{
-			//std::cout << "Quadrant: " << x << std::endl;
-			for (int i = 0; i < quad[x].size(); i++)
-			{
-				l[i]->getAnimationSprite()->getLocalBounds().width;
-				//If right side is to right of window's right
-				if (quad[x][i]->getPosition().x + (l[i]->getAnimationSprite()->getLocalBounds().width / 2) >= window->getSize().x)
-				{
-					quad[x][i]->setPosition(sf::Vector2f(quad[x][i]->getPosition().x - (quad[x][i]->getPosition().x + (l[i]->getAnimationSprite()->getLocalBounds().width / 2) - window->getSize().x), quad[x][i]->getPosition().y));
-
-				}
-				//If left side is to left of window's left
-				if (quad[x][i]->getPosition().x - (quad[x][i]->getAnimationSprite()->getLocalBounds().width / 2) <= 0)
-				{
-					quad[x][i]->setPosition(sf::Vector2f(0 + (quad[x][i]->getAnimationSprite()->getLocalBounds().width / 2), quad[x][i]->getPosition().y));
-
-				}
-				//If bottom is below window bottom
-				if (quad[x][i]->getPosition().y + (quad[x][i]->getAnimationSprite()->getLocalBounds().height / 2) >= window->getSize().y)
-				{
-					quad[x][i]->setPosition(sf::Vector2f(quad[x][i]->getPosition().x, quad[x][i]->getPosition().y - (quad[x][i]->getPosition().y + (quad[x][i]->getAnimationSprite()->getScale().y / 2) - window->getSize().y)));
-
-				}
-				//If top is above window top
-				if (quad[x][i]->getPosition().y - (quad[x][i]->getAnimationSprite()->getScale().y / 2) <= 0)
-				{
-					quad[x][i]->setPosition(sf::Vector2f(quad[x][i]->getPosition().x, 0 + (quad[x][i]->getAnimationSprite()->getScale().y / 2)));
-
-				}
-			}
 		}
 	}
 
