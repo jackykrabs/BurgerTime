@@ -307,6 +307,8 @@ void Level::buildLevelSix()
 
 void Level::quadTree(int x_, int y_, int xLen, int yLen, std::vector<GameObject*> l)
 {
+	float tmpWidth; float tmpHeight;
+
 	bool sideQuads[4]; // Used to check which quadrants are on screen edge
 
 	//Color List
@@ -333,23 +335,26 @@ void Level::quadTree(int x_, int y_, int xLen, int yLen, std::vector<GameObject*
 
 	for (int i = 0; i < l.size(); i++)
 	{
+		tmpWidth = l[i]->getAnimationSprite()->getLocalBounds().width;
+		tmpHeight = l[i]->getAnimationSprite()->getLocalBounds().height;
+
 		//Quadrant 1
-		if ((l[i]->getPosition().x) >(x_ + (xLen / 2)) && (l[i]->getPosition().y) < (y_ + (yLen / 2)))
+		if ((l[i]->getPosition().x + (tmpWidth / 2)) >(x_ + (xLen / 2)) && (l[i]->getPosition().y - (tmpHeight / 2)) < (y_ + (yLen / 2)))
 		{
 			quad[0].push_back(l[i]);
 		}
 		//Quadrant 2
-		else if ((l[i]->getPosition().x) < (x_ + (xLen / 2)) && (l[i]->getPosition().y) < (y_ + (yLen / 2)))
+		if ((l[i]->getPosition().x - (tmpWidth / 2)) < (x_ + (xLen / 2)) && (l[i]->getPosition().y - (tmpHeight / 2)) < (y_ + (yLen / 2)))
 		{
 			quad[1].push_back(l[i]);
 		}
 		//Quadrant 3
-		else if ((l[i]->getPosition().x) < (x_ + (xLen / 2)) && (l[i]->getPosition().y) > (y_ + (yLen / 2)))
+		if ((l[i]->getPosition().x - (tmpWidth / 2)) < (x_ + (xLen / 2)) && (l[i]->getPosition().y + (tmpHeight / 2)) > (y_ + (yLen / 2)))
 		{
 			quad[2].push_back(l[i]);
 		}
 		//Quadrant 4
-		else if ((l[i]->getPosition().x) > (x_ + (xLen / 2)) && (l[i]->getPosition().y) > (y_ + (yLen / 2)))
+		if ((l[i]->getPosition().x + (tmpWidth / 2)) > (x_ + (xLen / 2)) && (l[i]->getPosition().y + (tmpHeight / 2)) > (y_ + (yLen / 2)))
 		{
 			quad[3].push_back(l[i]);
 		}
@@ -383,7 +388,7 @@ void Level::quadTree(int x_, int y_, int xLen, int yLen, std::vector<GameObject*
 	for (int x = 0; x < 4; x++)
 	{
 
-		if (quad[x].size() > 1 && quad[x].size() < 4)
+		if (quad[x].size() > 1 && quad[x].size() < 5)
 		{
 			for (int n = 0; n < quad[x].size(); n++)
 			{
