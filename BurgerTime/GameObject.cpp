@@ -21,7 +21,7 @@ GameObject::GameObject(std::string fileName)
 	deathTimer = 0;
 
 	//default value of death countdown
-	deathCountDown = 80;
+	deathCountDown = 1;
 
 	sf::Image myImage;
 	myImage.loadFromFile("images//"+fileName);

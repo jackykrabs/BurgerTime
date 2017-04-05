@@ -6,7 +6,7 @@
 Enemy::Enemy(std::string name) : GameObject(name)
 {
 	this->setPosition(sf::Vector2f(rand() % 1500, rand() % 1500));
-	this->deathCountDown = 20;
+	this->deathCountDown = 80;
 	this->animation->minFrame = 0;
 	this->animation->maxFrame = 1;
 	this->animation->setAnimationSpeed(10);
@@ -29,6 +29,13 @@ void Enemy::step()
 
 	if (timer % 90 == 0)
 		this->setvY(this->getVelocity().y * -1);
+
+	if (toDie == true){
+		this->animation->setMinFrame(6);
+		this->animation->setMaxFrame(9);
+		this->setvX(0);
+		this->setvY(0);
+	}
 
 }
 

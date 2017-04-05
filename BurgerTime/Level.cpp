@@ -328,17 +328,16 @@ void Level::collisionCheck(std::vector<GameObject*> l)
 			if (x != n && //Comparison to itself would yield a collision
 				overlap(l[x], l[n]) == true)
 			{
+				if (Player* p = dynamic_cast<Player*> (l[x]))
+				{
+					if (Item* i = dynamic_cast<Item*> (l[n]))
+						i->setToDie(true);
+				}
 				if (PepperShot* p = dynamic_cast<PepperShot*>(l[x]))
 				{
 					if (Enemy* e = dynamic_cast<Enemy*>(l[n]))
 						e->setToDie(true);
 				}
-				else if (Player* p = dynamic_cast<Player*>(l[x]))
-				{
-					if (Item* i = dynamic_cast<Item*>(l[n]))
-						i->setToDie(true);
-				}
-				break;
 			}
 
 		}
