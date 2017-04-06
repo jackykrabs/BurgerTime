@@ -338,9 +338,26 @@ void Level::collisionCheck(std::vector<GameObject*> l)
 					if (Enemy* e = dynamic_cast<Enemy*>(l[n]))
 						e->setToDie(true);
 				}
+				
 			}
-
 		}
+
+		//If right side is to right of window's right
+		if (l[x]->getPosition().x + (l[x]->getAnimationSprite()->getGlobalBounds().width / 2) >= window->getSize().x)
+			l[x]->setPosition(sf::Vector2f(l[x]->getPosition().x - (l[x]->getPosition().x + (l[x]->getAnimationSprite()->getGlobalBounds().width / 2) - window->getSize().x), l[x]->getPosition().y));
+
+		//If left side is to left of window's left
+		else if (l[x]->getPosition().x - (l[x]->getAnimationSprite()->getGlobalBounds().width / 2) <= 0)
+			l[x]->setPosition(sf::Vector2f(0 + (l[x]->getAnimationSprite()->getGlobalBounds().width / 2), l[x]->getPosition().y));
+
+		//If bottom is below window bottom
+		if (l[x]->getPosition().y + (l[x]->getAnimationSprite()->getGlobalBounds().height / 2) >= window->getSize().y)
+			l[x]->setPosition(sf::Vector2f(l[x]->getPosition().x, l[x]->getPosition().y - (l[x]->getPosition().y + (l[x]->getAnimationSprite()->getGlobalBounds().height / 2) - window->getSize().y)));
+
+		//If top is above window top
+		else if (l[x]->getPosition().y - (l[x]->getAnimationSprite()->getGlobalBounds().height / 2) <= 0)
+			l[x]->setPosition(sf::Vector2f(l[x]->getPosition().x, 0 + (l[x]->getAnimationSprite()->getGlobalBounds().height / 2)));
+
 	}
 
 	return;
@@ -349,10 +366,10 @@ void Level::collisionCheck(std::vector<GameObject*> l)
 
 bool Level::overlap(GameObject * r1, GameObject * r2)
 {
-	if ((r1->getPosition().x - (r1->getAnimationSprite()->getLocalBounds().width / 2)) < (r2->getPosition().x + (r2->getAnimationSprite()->getLocalBounds().width / 2)) && //If r1 left edge to left of r2 right edge
-		(r1->getPosition().x + (r1->getAnimationSprite()->getLocalBounds().width / 2)) > (r2->getPosition().x - (r2->getAnimationSprite()->getLocalBounds().width / 2)) && //If r1 right edge to left of r2 left edge
-		(r1->getPosition().y - (r1->getAnimationSprite()->getLocalBounds().height / 2)) < (r2->getPosition().y + (r2->getAnimationSprite()->getLocalBounds().height / 2)) && //If r1 top above r2 bottom
-		(r1->getPosition().y + (r1->getAnimationSprite()->getLocalBounds().height / 2)) > (r2->getPosition().y - (r2->getAnimationSprite()->getLocalBounds().height / 2))) //If r1 bottom below r2 top
+	if ((r1->getPosition().x - (r1->getAnimationSprite()->getGlobalBounds().width / 2)) < (r2->getPosition().x + (r2->getAnimationSprite()->getGlobalBounds().width / 2)) && //If r1 left edge to left of r2 right edge
+		(r1->getPosition().x + (r1->getAnimationSprite()->getGlobalBounds().width / 2)) > (r2->getPosition().x - (r2->getAnimationSprite()->getGlobalBounds().width / 2)) && //If r1 right edge to left of r2 left edge
+		(r1->getPosition().y - (r1->getAnimationSprite()->getGlobalBounds().height / 2)) < (r2->getPosition().y + (r2->getAnimationSprite()->getGlobalBounds().height / 2)) && //If r1 top above r2 bottom
+		(r1->getPosition().y + (r1->getAnimationSprite()->getGlobalBounds().height / 2)) > (r2->getPosition().y - (r2->getAnimationSprite()->getGlobalBounds().height / 2))) //If r1 bottom below r2 top
 	{
 		return true;
 	}
