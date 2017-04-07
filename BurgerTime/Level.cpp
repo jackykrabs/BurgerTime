@@ -364,7 +364,7 @@ void Level::collisionCheck(std::vector<GameObject*> l)
 				if (PepperShot* p = dynamic_cast<PepperShot*>(l[x]))
 				{
 					if (Enemy* e = dynamic_cast<Enemy*>(l[n]))
-						e->setToDie(true);
+						e->setStunned(true);
 				}
 				
 			}

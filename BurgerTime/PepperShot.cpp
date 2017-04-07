@@ -19,7 +19,6 @@ PepperShot::PepperShot(GameObject* o) : GameObject("pepper_shot")
 
 PepperShot::~PepperShot()
 {
-	std::cout << "bye bye" << std::endl;
 }
 
 void PepperShot::step()

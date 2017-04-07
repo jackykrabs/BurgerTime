@@ -30,11 +30,32 @@ void Enemy::step()
 	if (timer % 90 == 0)
 		this->setvY(this->getVelocity().y * -1);
 
+	if (stunned)
+		stunnedTimer++;
+
+	if (stunnedTimer == 120)
+	{
+		stunned = false;
+		stunnedTimer = 0;
+	}
 	if (toDie == true){
 		this->animation->setMinFrame(6);
 		this->animation->setMaxFrame(9);
 		this->setvX(0);
 		this->setvY(0);
+	}
+
+	if (stunned)
+	{
+		setvX(0);
+		setvY(0);
+		animation->minFrame = 8;
+		animation->maxFrame = 8;
+	}
+	else
+	{
+		animation->minFrame = 0;
+		animation->maxFrame = 1;
 	}
 
 }
