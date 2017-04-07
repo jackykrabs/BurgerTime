@@ -26,6 +26,7 @@ private:
 	void handleEvents(sf::Event);
 	void gameLogic();
 	void drawObjects();
+	GameObject* gridLock(sf::Keyboard::Key*);//Locks Character to level platforms
 	sf::Clock gameClock;
 	sf::Time gameTime;
 

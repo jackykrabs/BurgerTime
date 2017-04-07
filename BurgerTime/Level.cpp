@@ -118,48 +118,68 @@ void Level::handleEvents(sf::Event event)
 		window->close();
 		break;
 	case sf::Event::KeyPressed:
+
+		/*If Gridlock returns a nullptr, it means that the player is colliding with both
+		a floor and a ladder and a keypress must determine where to go*/
+		if (gridLock(nullptr) == nullptr)
+		{
+			gridLock(&event.key.code);
+		}
+
 		switch (event.key.code)
 		{
 		case sf::Keyboard::Down:
-			player->setvY(5);
-			if (player->getAction() != "climbing")
+			if (player->getlLock() == gridLock(nullptr))//If currently locked to ladder
 			{
-				player->setAction("climbing");
-				player->processAction();
+				player->setvY(5);
+				if (player->getAction() != "climbing")
+				{
+					player->setAction("climbing");
+					player->processAction();
+				}
 			}
 			break;
 		case sf::Keyboard::Up:
-			player->setvY(-5);
-			if (player->getAction() != "climbing")
+			if (player->getlLock() == gridLock(nullptr))//If currently locked to ladder
 			{
-				player->setAction("climbing");
-				player->processAction();
+				player->setvY(-5);
+				if (player->getAction() != "climbing")
+				{
+					player->setAction("climbing");
+					player->processAction();
+				}
 			}
 			break;
 		case sf::Keyboard::Left:
-			if (player->getAction() != "walking")
+			if (player->getfLock() == gridLock(nullptr))//If currently locked to floor
 			{
-				player->setAction("walking");
-				player->processAction();
-			}
-			player->setvX(-5);
-			if (player->getDirection() == 1)
-			{
-				player->flip();
-				player->setDirection(0);
+				if (player->getAction() != "walking")
+				{
+					player->setAction("walking");
+					player->processAction();
+				}
+				player->setvX(-5);
+				if (player->getDirection() == 1)
+				{
+					player->flip();
+					player->setDirection(0);
+				}
 			}
 			break;
 		case sf::Keyboard::Right:
-			if (player->getAction() != "walking")
+			if (player->getfLock() == gridLock(nullptr))//If currently locked to floor
 			{
-				player->setAction("walking");
-				player->processAction();
-			}
-			player->setvX(5);
-			if (player->getDirection() == 0)
-			{
-				player->flip();
-				player->setDirection(1);
+				if (player->getAction() != "walking")
+				{
+					player->setAction("walking");
+					player->processAction();
+				}
+				player->setvX(5);
+				if (player->getDirection() == 0)
+				{
+					player->flip();
+					player->setDirection(1);
+				}
 			}
 			break;
 		case sf::Keyboard::Return:
@@ -330,9 +350,17 @@ void Level::collisionCheck(std::vector<GameObject*> l)
 			{
 				if (Player* p = dynamic_cast<Player*> (l[x]))
 				{
+					if (l[n] == dynamic_cast<Ladder*> (l[n]))//If colliding with ladder
+						p->setlLock(l[n]);
+
+					if (l[n] == dynamic_cast<Floor*> (l[n]))//If colliding with floor
+						p->setfLock(l[n]);
+
 					if (Item* i = dynamic_cast<Item*> (l[n]))
 						i->setToDie(true);
+					
 				}
+
 				if (PepperShot* p = dynamic_cast<PepperShot*>(l[x]))
 				{
 					if (Enemy* e = dynamic_cast<Enemy*>(l[n]))
@@ -375,4 +403,43 @@ bool Level::overlap(GameObject * r1, GameObject * r2)
 	}
 	else
 		return false;
+}
+
+
+GameObject* Level::gridLock(sf::Keyboard::Key* k)
+{
+	Player* p = player;
+
+	if (p->getlLock() != nullptr && p->getfLock() != nullptr) //If colliding with both ladder and floor
+	{
+		if (k == nullptr) //When handleEvents is checking for the above situation
+		{
+			return nullptr; //Let handleEvents know by returning nullptr
+		}
+		else
+		{
+			if (*k == sf::Keyboard::Down || *k == sf::Keyboard::Up) //Select ladder based on handleEvents feedback
+				p->setfLock(nullptr);
+
+			if (*k == sf::Keyboard::Left || *k == sf::Keyboard::Right) //Select floor based on handleEvents feedback
+				p->setlLock(nullptr);
+		}
+	}
+
+	//Ladder
+	if (p->getlLock() != nullptr && p->getfLock() == nullptr)
+	{
+		p->setPosition(sf::Vector2f(p->getlLock()->getPosition().x, p->getPosition().y)); //Set x to ladder's x
+
+		return p->getlLock();
+	}
+	//Floor
+	else if (p->getfLock() != nullptr && p->getlLock() == nullptr)
+	{
+		//Set player y to on top of floor
+		p->setPosition(sf::Vector2f(p->getPosition().x, p->getfLock()->getPosition().y - ((p->getfLock()->getAnimationSprite()->getGlobalBounds().height / 2) + (p->getAnimationSprite()->getGlobalBounds().height / 2))));
+
+		return p->getfLock();
+	}
+
 }
