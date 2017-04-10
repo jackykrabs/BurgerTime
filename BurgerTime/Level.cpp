@@ -106,6 +106,9 @@ void Level::gameLogic()
 		}
 	}
 
+	if (player->getDeathTimer() == player->getDeathCountDown())
+		player->setPosition(sf::Vector2f(50, 50));
+
 }
 
 //handle the events (key input, close screen, etc)
@@ -358,6 +361,12 @@ void Level::collisionCheck(std::vector<GameObject*> l)
 
 					if (Item* i = dynamic_cast<Item*> (l[n]))
 						i->setToDie(true);
+					if (Enemy* e = dynamic_cast<Enemy*> (l[n]))
+					{
+						//logic for if the player hits an enemy
+						if (e->getToDie() == false && e->getStunned() == false)
+							p->setToDie(true);
+					}
 					
 				}
 

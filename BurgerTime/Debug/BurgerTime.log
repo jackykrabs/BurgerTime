@@ -1,13 +1,20 @@
-﻿Build started 4/6/2017 9:01:11 PM.
-     1>Project "C:\Users\Jack\Documents\GitHub\BurgerTime\BurgerTime\BurgerTime.vcxproj" on node 2 (Build target(s)).
+﻿Build started 4/10/2017 10:19:14 AM.
+     1>Project "C:\Users\17jba02\Documents\GitHub\BurgerTime\BurgerTime\BurgerTime.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\SFML-2.4.2\include" /Zi /nologo /W3 /WX- /sdl /Od /Oy- /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\BurgerTime.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Enemy.cpp
-         Enemy.cpp
-     1>c:\users\jack\documents\github\burgertime\burgertime\GameObject.h(34): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\jack\documents\github\burgertime\burgertime\GameObject.h(35): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>Enemy.cpp(8): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\SFML-2.4.2\include" /Zi /nologo /W3 /WX- /sdl /Od /Oy- /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\BurgerTime.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Level.cpp
+         Level.cpp
+     1>c:\users\17jba02\documents\github\burgertime\burgertime\GameObject.h(34): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\17jba02\documents\github\burgertime\burgertime\GameObject.h(35): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>Level.cpp(88): warning C4018: '<' : signed/unsigned mismatch
+     1>Level.cpp(100): warning C4018: '<' : signed/unsigned mismatch
+     1>Level.cpp(240): warning C4018: '<' : signed/unsigned mismatch
+     1>Level.cpp(287): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Level.cpp(292): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Level.cpp(346): warning C4018: '<' : signed/unsigned mismatch
+     1>Level.cpp(348): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\17jba02\documents\github\burgertime\burgertime\level.cpp(454): warning C4715: 'Level::gridLock' : not all control paths return a value
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Jack\Documents\GitHub\BurgerTime\Debug\BurgerTime.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\SFML-2.4.2\lib" "sfml-graphics-d.lib" "sfml-window-d.lib" "sfml-system-d.lib" "sfml-audio-d.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Jack\Documents\GitHub\BurgerTime\Debug\BurgerTime.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Jack\Documents\GitHub\BurgerTime\Debug\BurgerTime.lib" /MACHINE:X86 Debug\Animation.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\17jba02\Documents\GitHub\BurgerTime\Debug\BurgerTime.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\SFML-2.4.2\lib" "sfml-graphics-d.lib" "sfml-window-d.lib" "sfml-system-d.lib" "sfml-audio-d.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\17jba02\Documents\GitHub\BurgerTime\Debug\BurgerTime.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\17jba02\Documents\GitHub\BurgerTime\Debug\BurgerTime.lib" /MACHINE:X86 Debug\Animation.obj
          Debug\Burger.obj
          Debug\BurgerTime.obj
          Debug\Enemy.obj
@@ -23,9 +30,9 @@
          Debug\Sound.obj
          Debug\stdafx.obj
          Debug\Structure.obj
-         BurgerTime.vcxproj -> C:\Users\Jack\Documents\GitHub\BurgerTime\Debug\BurgerTime.exe
-     1>Done Building Project "C:\Users\Jack\Documents\GitHub\BurgerTime\BurgerTime\BurgerTime.vcxproj" (Build target(s)).
+         BurgerTime.vcxproj -> C:\Users\17jba02\Documents\GitHub\BurgerTime\Debug\BurgerTime.exe
+     1>Done Building Project "C:\Users\17jba02\Documents\GitHub\BurgerTime\BurgerTime\BurgerTime.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.13
+Time Elapsed 00:00:01.17

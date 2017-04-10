@@ -49,14 +49,17 @@ void Enemy::step()
 	{
 		setvX(0);
 		setvY(0);
-		animation->minFrame = 8;
-		animation->maxFrame = 8;
+		animation->minFrame = 3;
+		animation->maxFrame = 3;
+		animation->setFrame(3);
 	}
 	else
 	{
 		animation->minFrame = 0;
 		animation->maxFrame = 1;
 	}
+
+	std::cout << animation->maxFrame << std::endl;
 
 }
 
