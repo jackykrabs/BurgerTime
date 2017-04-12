@@ -106,9 +106,6 @@ void Level::gameLogic()
 		}
 	}
 
-	if (player->getDeathTimer() == player->getDeathCountDown())
-		player->setPosition(sf::Vector2f(50, 50));
-
 }
 
 //handle the events (key input, close screen, etc)
@@ -351,6 +348,15 @@ void Level::collisionCheck(std::vector<GameObject*> l)
 			if (x != n && //Comparison to itself would yield a collision
 				overlap(l[x], l[n]) == true)
 			{
+				if (Enemy* e = dynamic_cast<Enemy*> (l[x]))
+				{
+					if (l[n] == dynamic_cast<Ladder*> (l[n]))//If colliding with ladder
+						e->setlLock(l[n]);
+
+					if (l[n] == dynamic_cast<Floor*> (l[n]))//If colliding with floor
+						e->setfLock(l[n]);
+				}
+
 				if (Player* p = dynamic_cast<Player*> (l[x]))
 				{
 					if (l[n] == dynamic_cast<Ladder*> (l[n]))//If colliding with ladder
@@ -361,12 +367,6 @@ void Level::collisionCheck(std::vector<GameObject*> l)
 
 					if (Item* i = dynamic_cast<Item*> (l[n]))
 						i->setToDie(true);
-					if (Enemy* e = dynamic_cast<Enemy*> (l[n]))
-					{
-						//logic for if the player hits an enemy
-						if (e->getToDie() == false && e->getStunned() == false)
-							p->setToDie(true);
-					}
 					
 				}
 
