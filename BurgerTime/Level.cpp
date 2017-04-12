@@ -17,22 +17,29 @@ Level::Level(int levelNumber, int lives, int score, sf::RenderWindow *window)
 	this->window = window;
 	this->levelNumber = levelNumber;
 	this->score = score;
+	this->lives = lives;
+
+	player = new Player();
 	buildLevel();
 	player->setShots(200);
 
 	//set up the display information
 	font.loadFromFile("Pixeled.ttf");
 
+	livesLabel.setFont(font);
+	livesLabel.setPosition(1025, 50);
+	livesLabel.setString("Lives: " + std::to_string(lives));
+
 	shotsLabel.setFont(font);
-	shotsLabel.setPosition(400, 50);
+	shotsLabel.setPosition(300, 50);
 	shotsLabel.setString("Shots: " + std::to_string(player->getShots()));
 
 	scoreLabel.setFont(font);
-	scoreLabel.setPosition(750, 50);
+	scoreLabel.setPosition(650, 50);
 	scoreLabel.setString("Score: " + std::to_string(score));
 
 	levelLabel.setFont(font);
-	levelLabel.setPosition(100, 50);
+	levelLabel.setPosition(50, 50);
 	levelLabel.setString("Level: " + std::to_string(levelNumber));
 
 }
@@ -78,6 +85,7 @@ void Level::gameLogic()
 	//update label
 	scoreLabel.setString("Score: " + std::to_string(score));
 	shotsLabel.setString("Shots: " + std::to_string(player->getShots()));
+	livesLabel.setString("Lives: " + std::to_string(lives));
 
 	//player logic
 	player->move(player->getVelocity());
@@ -231,6 +239,7 @@ void Level::handleEvents(sf::Event event)
 void Level::drawObjects()
 {
 	window->clear();
+	window->draw(livesLabel);
 	window->draw(shotsLabel);
 	window->draw(levelLabel);
 	window->draw(scoreLabel);
@@ -276,7 +285,7 @@ void Level::buildLevel()
 //no preconditions/postconditions
 void Level::buildLevelOne()
 {
-	player = new Player();
+
 
 	for (int i = 0; i < 5; i++)
 	{
@@ -367,6 +376,16 @@ void Level::collisionCheck(std::vector<GameObject*> l)
 
 					if (Item* i = dynamic_cast<Item*> (l[n]))
 						i->setToDie(true);
+
+					//DEATH TO PEPPER!!!!11
+					if (Enemy* e = dynamic_cast<Enemy*>(l[n]))
+					{
+						if (e->getStunned() == false && e->getToDie() == false)
+						{
+							p->setPosition(sf::Vector2f(20, 20));
+							lives--;
+						}
+					}
 					
 				}
 

@@ -12,6 +12,7 @@ public:
 	int getScore() { return score; }
 	void play();
 private:
+	int lives;
 	int score;
 	bool levelComplete = false;
 	sf::RenderWindow* window;
@@ -34,6 +35,7 @@ private:
 	bool overlap(GameObject *, GameObject *);
 
 	sf::Font font;
+	sf::Text livesLabel;
 	sf::Text shotsLabel;
 	sf::Text scoreLabel;
 	sf::Text levelLabel;

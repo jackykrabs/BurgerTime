@@ -7,6 +7,7 @@ Player::Player() : GameObject("pepper")
 {
 	floorLock = nullptr; ladLock = nullptr;
 	animation->setScale(sf::Vector2f(5,5));
+	deathCountDown = 1;
 }
 
 
