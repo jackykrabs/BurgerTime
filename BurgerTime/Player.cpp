@@ -2,12 +2,13 @@
 #include "Player.h"
 #include "GameObject.h"
 
-
+//TODO: print the information on the players position in order to decide where to make the spawn miester
 Player::Player() : GameObject("pepper")
 {
 	floorLock = nullptr; ladLock = nullptr;
 	animation->setScale(sf::Vector2f(5,5));
 	deathCountDown = 1;
+	animation->setPosition(100,100);
 }
 
 

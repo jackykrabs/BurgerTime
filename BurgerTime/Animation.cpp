@@ -7,7 +7,7 @@
 
 Animation::Animation(std::string name, int animationSpeed)
 {
-	position = sf::Vector2f(500, 500);
+	//position = sf::Vector2f(500, 500);
 	isFlipped = false;
 	setMinFrame(0);
 	setMaxFrame(0);
