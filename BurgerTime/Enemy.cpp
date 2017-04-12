@@ -50,8 +50,9 @@ void Enemy::step()
 	{
 		setvX(0);
 		setvY(0);
-		animation->minFrame = 8;
-		animation->maxFrame = 8;
+		animation->minFrame = 3;
+		animation->maxFrame = 3;
+		animation->setFrame(3);
 	}
 	else
 	{
