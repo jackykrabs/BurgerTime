@@ -121,7 +121,7 @@ GameObject* Enemy::gridLock(bool vertical, bool check = false)
 	else if (this->getfLock() != nullptr && this->getlLock() == nullptr)
 	{
 		//Set player y to on top of floor
-		this->setPosition(sf::Vector2f(this->getPosition().x, this->getfLock()->getPosition().y - ((this->getfLock()->getAnimationSprite()->getGlobalBounds().height / 2) + (this->getAnimationSprite()->getGlobalBounds().height / 2))));
+		this->setPosition(sf::Vector2f(this->getPosition().x, this->getfLock()->getPosition().y - ((this->getfLock()->getAnimationSprite()->getGlobalBounds().height / 2) + (this->getAnimationSprite()->getGlobalBounds().height / 2)) + 2));
 		return this->getfLock();
 	}
 }

@@ -21,7 +21,6 @@ public:
 	void setlLock(GameObject* l) { ladLock = l; } //Sets player to lock to ladder
 	GameObject* getfLock() { return floorLock; }
 	GameObject* getlLock() { return ladLock; }
-
 private:
 	std::string action;
 	int pepperShots;

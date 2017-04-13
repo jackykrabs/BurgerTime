@@ -8,6 +8,13 @@ Floor::Floor() : Structure("floor")
 }
 
 
+Floor::Floor(Floor* left, Floor* right) : Structure("floor")
+{
+	animation->setScale(sf::Vector2f(0.75, 0.75));
+	rSide = right; lSide = left;
+}
+
+
 Floor::~Floor()
 {
 }
