@@ -458,7 +458,7 @@ void Level::collisionCheck(std::vector<GameObject*> l)
 {
 	for (int x = 0; x < l.size(); x++)
 	{
-		if (l[x] == dynamic_cast<Player*>(l[x]) || l[x] == dynamic_cast<Enemy*>(l[x]))
+		if (l[x] == dynamic_cast<Player*>(l[x]) || l[x] == dynamic_cast<Enemy*>(l[x]) || l[x] == dynamic_cast<PepperShot*>(l[x]))
 		{
 			for (int n = 0; n < l.size(); n++)
 			{
