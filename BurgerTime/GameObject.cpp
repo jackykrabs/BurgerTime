@@ -44,6 +44,12 @@ void GameObject::updateClipart()
 	myTexture.loadFromImage(anotherImage);
 }
 
+void GameObject::setOriginalPosition(sf::Vector2f originalPosition)
+{
+	this->originalPosition = originalPosition;
+	this->setPosition(originalPosition);
+}
+
 //called every frame to update good times
 void GameObject::step()
 {

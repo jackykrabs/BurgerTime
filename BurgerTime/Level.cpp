@@ -20,6 +20,7 @@ Level::Level(int levelNumber, int lives, int score, sf::RenderWindow *window)
 	this->score = score;
 	this->lives = lives;
 
+	pauseBuffer = 0;
 	player = new Player();
 	buildLevel();
 	player->setShots(200);
@@ -62,9 +63,12 @@ void Level::play()
 		if (gameTime.asMilliseconds() >= 17)
 		{
 			sf::Event event;
-			while (window->pollEvent(event))
+			if (!paused)
 			{
-				handleEvents(event);
+				while (window->pollEvent(event))
+				{
+					handleEvents(event);
+				}
 			}
 
 			allObjects.clear();
@@ -75,6 +79,13 @@ void Level::play()
 			drawObjects();
 
 			gameClock.restart();
+			if (paused)
+				pauseBuffer++;
+			if (pauseBuffer == 120){
+				paused = false;
+				reset();
+				pauseBuffer = 0;
+			}
 		}
 	}
 }
@@ -89,14 +100,16 @@ void Level::gameLogic()
 	livesLabel.setString("Lives: " + std::to_string(lives));
 
 	//player logic
-	player->move(player->getVelocity());
+	if (!paused)
+		player->move(player->getVelocity());
 	player->step();
 
 	collisionCheck(allObjects);
 
 	for (int i = 0; i < gameObjects.size(); i++)
 	{
-		gameObjects.at(i)->move(gameObjects.at(i)->getVelocity());
+		if (!paused)
+			gameObjects.at(i)->move(gameObjects.at(i)->getVelocity());
 		gameObjects.at(i)->step();
 
 		if (Enemy* e = dynamic_cast<Enemy*>(gameObjects.at(i)))
@@ -342,17 +355,17 @@ void Level::buildLevelOne()
 	step = buildLadder(step, 2, gameObjects.at(0)->getPosition().x, gameObjects.at(0)->getPosition().y + (ex2.getAnimationSprite()->getGlobalBounds().height / 2) - 4);
 
 	gameObjects.push_back(new Item("ice_cream_cone"));
-	gameObjects.at(step)->setPosition(sf::Vector2f(710, 477));
+	gameObjects.at(step)->setOriginalPosition(sf::Vector2f(710, 477));
 	gameObjects.push_back(new Item("fries"));
-	gameObjects.at(step + 1)->setPosition(sf::Vector2f(660, 477));
+	gameObjects.at(step + 1)->setOriginalPosition(sf::Vector2f(660, 477));
 	gameObjects.push_back(new Item("coffee"));
-	gameObjects.at(step + 2)->setPosition(sf::Vector2f(610, 477));
+	gameObjects.at(step + 2)->setOriginalPosition(sf::Vector2f(610, 477));
 	gameObjects.push_back(new Enemy("egg"));
-	gameObjects.at(step + 3)->setPosition(sf::Vector2f(550, 477));
+	gameObjects.at(step + 3)->setOriginalPosition(sf::Vector2f(377, 162.25));
 	gameObjects.push_back(new Enemy("hotdog"));
-	gameObjects.at(step + 4)->setPosition(sf::Vector2f(600, 477));
+	gameObjects.at(step + 4)->setOriginalPosition(sf::Vector2f(420, 162.25));
 	gameObjects.push_back(new Enemy("pickle"));
-	gameObjects.at(step + 5)->setPosition(sf::Vector2f(650, 477));
+	gameObjects.at(step + 5)->setOriginalPosition(sf::Vector2f(400, 162.25));
 }
 
 
@@ -484,14 +497,18 @@ void Level::collisionCheck(std::vector<GameObject*> l)
 					if (Item* i = dynamic_cast<Item*> (l[n]))
 						i->setToDie(true);
 
-					//DEATH TO PEPPER!!!!11
+					//DEATH TO PEPPER!!!!11 (no but this is what happens when he gets hit by an enemy)
 					if (Enemy* e = dynamic_cast<Enemy*>(l[n]))
 					{
-						if (e->getStunned() == false && e->getToDie() == false)
+						if (!paused)
 						{
-							p->setlLock(nullptr); p->setfLock(nullptr); //Wipes gridlock for movement readjustment after respawning
-							p->setPosition(sf::Vector2f(850, 600));
-							lives--;
+							if (e->getStunned() == false && e->getToDie() == false)
+							{
+								p->setlLock(nullptr); p->setfLock(nullptr); //Wipes gridlock for movement readjustment after respawning
+								player->setAction("dying");
+								player->processAction();
+								paused = true;
+							}
 						}
 					}
 				}
@@ -616,4 +633,17 @@ GameObject* Level::gridLock(sf::Keyboard::Key* k)
 		return p->getfLock();
 	}
 
+}
+
+void Level::reset()
+{
+	lives--;
+	player->setPosition(player->getOriginalPosition());
+	for (int i = 0; i < gameObjects.size(); i++)
+	{
+		if (Enemy* e = dynamic_cast<Enemy*> (gameObjects.at(i)))
+			e->setPosition(e->getOriginalPosition());
+	}
+	player->setAction("still");
+	player->processAction();
 }

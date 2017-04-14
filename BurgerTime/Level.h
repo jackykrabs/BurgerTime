@@ -12,6 +12,7 @@ public:
 	int getScore() { return score; }
 	void play();
 private:
+	void reset();
 	int lives;
 	int score;
 	bool levelComplete = false;
@@ -34,6 +35,9 @@ private:
 	GameObject* gridLock(sf::Keyboard::Key*);//Locks Character to level platforms
 	sf::Clock gameClock;
 	sf::Time gameTime;
+
+	int pauseBuffer;
+	bool paused;
 
 	void collisionCheck(std::vector<GameObject*>);
 	bool overlap(GameObject *, GameObject *);

@@ -46,7 +46,7 @@ void Animation::loadImages()
 {
 	if (!isStillSprite(name))
 	{
-		for (int i = 1; i <= 14; i++)
+		for (int i = 1; i <= 20; i++)
 		{
 			sf::Image* temp = new sf::Image();
 			std::string filePath = "images\\" + name + "-" + std::to_string(i) + ".png";
