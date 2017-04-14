@@ -430,136 +430,136 @@ void Level::collisionCheck(std::vector<GameObject*> l)
 {
 	for (int x = 0; x < l.size(); x++)
 	{
-		for (int n = 0; n < l.size(); n++)
+		if (l[x] == dynamic_cast<GameObject*>(l[x]))
 		{
-
-			if (x != n && //Comparison to itself would yield a collision
-				overlap(l[x], l[n]) == true)
+			for (int n = 0; n < l.size(); n++)
 			{
-				if (Enemy* e = dynamic_cast<Enemy*> (l[x]))
+				if (x != n && //Comparison to itself would yield a collision
+					overlap(l[x], l[n]) == true)
 				{
-					if (l[n] == dynamic_cast<Ladder*> (l[n]))//If colliding with ladder
-						e->setlLock(l[n]);
+					if (Enemy* e = dynamic_cast<Enemy*> (l[x]))
+					{
+						if (l[n] == dynamic_cast<Ladder*> (l[n]))//If colliding with ladder
+							e->setlLock(l[n]);
 
-					if (l[n] == dynamic_cast<Floor*> (l[n]))//If colliding with floor
-						e->setfLock(l[n]);
+						if (l[n] == dynamic_cast<Floor*> (l[n]))//If colliding with floor
+							e->setfLock(l[n]);
+					}
+					//Player Collision Checks
+					//--------------------------------------------------------------------------------------------------------------------------------------------
+					if (Player* p = dynamic_cast<Player*> (l[x]))
+					{
+						if (l[n] == dynamic_cast<Ladder*> (l[n]))//If colliding with ladder
+						{
+							p->setlLock(l[n]);
+
+							//If moving past top of ladder
+							if (p->getlLock() == dynamic_cast<Ladder*>(p->getlLock())->getTop() && (p->getPosition().y + (p->getAnimationSprite()->getGlobalBounds().height / 2)) <= (p->getlLock()->getPosition().y - (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2) + 5))
+							{
+								p->setPosition(sf::Vector2f(p->getlLock()->getPosition().x, p->getlLock()->getPosition().y - (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2)));
+							}
+							//If moving past bottom of ladder
+							else if (p->getlLock() == dynamic_cast<Ladder*>(p->getlLock())->getBot() && (p->getPosition().y + (p->getAnimationSprite()->getGlobalBounds().height / 2)) >= (p->getlLock()->getPosition().y + (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2)))
+							{
+								p->setPosition(sf::Vector2f(p->getlLock()->getPosition().x, p->getlLock()->getPosition().y + (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2) - (p->getAnimationSprite()->getGlobalBounds().height / 2)));
+							}
+						}
+
+
+						if (l[n] == dynamic_cast<Floor*> (l[n]))//If colliding with floor
+						{
+							p->setfLock(l[n]);
+
+							//If moving past left side
+							if (p->getfLock() == dynamic_cast<Floor*>(p->getfLock())->getLeft() && (p->getPosition().x - (p->getAnimationSprite()->getGlobalBounds().width / 2)) <= (p->getfLock()->getPosition().x - (p->getfLock()->getAnimationSprite()->getGlobalBounds().width / 2)))
+							{
+								p->setPosition(sf::Vector2f(p->getfLock()->getPosition().x - (p->getfLock()->getAnimationSprite()->getGlobalBounds().width / 2) + (p->getAnimationSprite()->getGlobalBounds().width / 2), p->getPosition().y));
+							}
+							//If moving past right side
+							else if (p->getfLock() == dynamic_cast<Floor*>(p->getfLock())->getRight() && (p->getPosition().x + (p->getAnimationSprite()->getGlobalBounds().width / 2)) >= (p->getfLock()->getPosition().x + (p->getfLock()->getAnimationSprite()->getGlobalBounds().width / 2)))
+							{
+								p->setPosition(sf::Vector2f(p->getfLock()->getPosition().x + (p->getfLock()->getAnimationSprite()->getGlobalBounds().width / 2) - (p->getAnimationSprite()->getGlobalBounds().width / 2), p->getPosition().y));
+							}
+						}
+						if (Item* i = dynamic_cast<Item*> (l[n]))
+							i->setToDie(true);
+
+						//DEATH TO PEPPER!!!!11
+						if (Enemy* e = dynamic_cast<Enemy*>(l[n]))
+						{
+							if (e->getStunned() == false && e->getToDie() == false)
+							{
+								p->setlLock(nullptr); p->setfLock(nullptr); //Wipes gridlock for movement readjustment after respawning
+								p->setPosition(sf::Vector2f(850, 600));
+								lives--;
+							}
+						}
+					}
+
+					//Enemy Collision Checks
+					//--------------------------------------------------------------------------------------------------------------------------------------------
+					if (Enemy* p = dynamic_cast<Enemy*> (l[x]))
+					{
+
+						if (l[n] == dynamic_cast<Ladder*> (l[n]))//If colliding with ladder
+						{
+							p->setlLock(l[n]);
+
+							//If moving past top of ladder
+							if (p->getlLock() == dynamic_cast<Ladder*>(p->getlLock())->getTop() && (p->getPosition().y + (p->getAnimationSprite()->getGlobalBounds().height / 2)) <= (p->getlLock()->getPosition().y - (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2) + 15))
+							{
+								p->setPosition(sf::Vector2f(p->getlLock()->getPosition().x, p->getlLock()->getPosition().y - (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2)));
+							}
+							//If moving past bottom of ladder
+							else if (p->getlLock() == dynamic_cast<Ladder*>(p->getlLock())->getBot() && (p->getPosition().y + (p->getAnimationSprite()->getGlobalBounds().height / 2)) >= (p->getlLock()->getPosition().y + (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2)))
+							{
+								p->setPosition(sf::Vector2f(p->getlLock()->getPosition().x, p->getlLock()->getPosition().y + (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2) - (p->getAnimationSprite()->getGlobalBounds().height / 2)));
+							}
+						}
+
+
+						if (l[n] == dynamic_cast<Floor*> (l[n]))//If colliding with floor
+						{
+							p->setfLock(l[n]);
+
+							//If moving past left side
+							if (p->getfLock() == dynamic_cast<Floor*>(p->getfLock())->getLeft() && (p->getPosition().x - (p->getAnimationSprite()->getGlobalBounds().width / 2)) <= (p->getfLock()->getPosition().x - (p->getfLock()->getAnimationSprite()->getGlobalBounds().width / 2)))
+							{
+								p->setPosition(sf::Vector2f(p->getfLock()->getPosition().x - (p->getfLock()->getAnimationSprite()->getGlobalBounds().width / 2) + (p->getAnimationSprite()->getGlobalBounds().width / 2), p->getPosition().y));
+							}
+							//If moving past right side
+							else if (p->getfLock() == dynamic_cast<Floor*>(p->getfLock())->getRight() && (p->getPosition().x + (p->getAnimationSprite()->getGlobalBounds().width / 2)) >= (p->getfLock()->getPosition().x + (p->getfLock()->getAnimationSprite()->getGlobalBounds().width / 2)))
+							{
+								p->setPosition(sf::Vector2f(p->getfLock()->getPosition().x + (p->getfLock()->getAnimationSprite()->getGlobalBounds().width / 2) - (p->getAnimationSprite()->getGlobalBounds().width / 2), p->getPosition().y));
+							}
+						}
+					}
+
+					if (PepperShot* p = dynamic_cast<PepperShot*>(l[x]))
+					{
+						if (Enemy* e = dynamic_cast<Enemy*>(l[n]))
+							e->setStunned(true);
+					}
+
 				}
-				//Player Collision Checks
-				//--------------------------------------------------------------------------------------------------------------------------------------------
-				if (Player* p = dynamic_cast<Player*> (l[x]))
-				{
-
-					if (l[n] == dynamic_cast<Ladder*> (l[n]))//If colliding with ladder
-					{
-						p->setlLock(l[n]);
-
-						//If moving past top of ladder
-						if (p->getlLock() == dynamic_cast<Ladder*>(p->getlLock())->getTop() && (p->getPosition().y + (p->getAnimationSprite()->getGlobalBounds().height / 2)) <= (p->getlLock()->getPosition().y - (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2) + 5))
-						{
-							p->setPosition(sf::Vector2f(p->getlLock()->getPosition().x, p->getlLock()->getPosition().y - (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2)));
-						}
-						//If moving past bottom of ladder
-						else if (p->getlLock() == dynamic_cast<Ladder*>(p->getlLock())->getBot() && (p->getPosition().y + (p->getAnimationSprite()->getGlobalBounds().height / 2)) >= (p->getlLock()->getPosition().y + (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2)))
-						{
-							p->setPosition(sf::Vector2f(p->getlLock()->getPosition().x, p->getlLock()->getPosition().y + (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2) - (p->getAnimationSprite()->getGlobalBounds().height / 2)));
-						}
-					}
-
-
-					if (l[n] == dynamic_cast<Floor*> (l[n]))//If colliding with floor
-					{
-						p->setfLock(l[n]);
-
-						//If moving past left side
-						if (p->getfLock() == dynamic_cast<Floor*>(p->getfLock())->getLeft() && (p->getPosition().x - (p->getAnimationSprite()->getGlobalBounds().width / 2)) <= (p->getfLock()->getPosition().x - (p->getfLock()->getAnimationSprite()->getGlobalBounds().width / 2)))
-						{
-							p->setPosition(sf::Vector2f(p->getfLock()->getPosition().x - (p->getfLock()->getAnimationSprite()->getGlobalBounds().width / 2) + (p->getAnimationSprite()->getGlobalBounds().width / 2), p->getPosition().y));
-						}
-						//If moving past right side
-						else if (p->getfLock() == dynamic_cast<Floor*>(p->getfLock())->getRight() && (p->getPosition().x + (p->getAnimationSprite()->getGlobalBounds().width / 2)) >= (p->getfLock()->getPosition().x + (p->getfLock()->getAnimationSprite()->getGlobalBounds().width / 2)))
-						{
-							p->setPosition(sf::Vector2f(p->getfLock()->getPosition().x + (p->getfLock()->getAnimationSprite()->getGlobalBounds().width / 2) - (p->getAnimationSprite()->getGlobalBounds().width / 2), p->getPosition().y));
-						}
-					}
-					if (Item* i = dynamic_cast<Item*> (l[n]))
-						i->setToDie(true);
-
-					//DEATH TO PEPPER!!!!11
-					if (Enemy* e = dynamic_cast<Enemy*>(l[n]))
-					{
-						if (e->getStunned() == false && e->getToDie() == false)
-						{
-							p->setlLock(nullptr); p->setfLock(nullptr); //Wipes gridlock for movement readjustment after respawning
-							p->setPosition(sf::Vector2f(850, 600));
-							lives--;
-						}
-					}
-				}
-
-				//Enemy Collision Checks
-				//--------------------------------------------------------------------------------------------------------------------------------------------
-				if (Enemy* p = dynamic_cast<Enemy*> (l[x]))
-				{
-
-					if (l[n] == dynamic_cast<Ladder*> (l[n]))//If colliding with ladder
-					{
-						p->setlLock(l[n]);
-
-						//If moving past top of ladder
-						if (p->getlLock() == dynamic_cast<Ladder*>(p->getlLock())->getTop() && (p->getPosition().y + (p->getAnimationSprite()->getGlobalBounds().height / 2)) <= (p->getlLock()->getPosition().y - (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2) + 15))
-						{
-							p->setPosition(sf::Vector2f(p->getlLock()->getPosition().x, p->getlLock()->getPosition().y - (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2)));
-						}
-						//If moving past bottom of ladder
-						else if (p->getlLock() == dynamic_cast<Ladder*>(p->getlLock())->getBot() && (p->getPosition().y + (p->getAnimationSprite()->getGlobalBounds().height / 2)) >= (p->getlLock()->getPosition().y + (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2)))
-						{
-							p->setPosition(sf::Vector2f(p->getlLock()->getPosition().x, p->getlLock()->getPosition().y + (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2) - (p->getAnimationSprite()->getGlobalBounds().height / 2)));
-						}
-					}
-
-
-					if (l[n] == dynamic_cast<Floor*> (l[n]))//If colliding with floor
-					{
-						p->setfLock(l[n]);
-
-						//If moving past left side
-						if (p->getfLock() == dynamic_cast<Floor*>(p->getfLock())->getLeft() && (p->getPosition().x - (p->getAnimationSprite()->getGlobalBounds().width / 2)) <= (p->getfLock()->getPosition().x - (p->getfLock()->getAnimationSprite()->getGlobalBounds().width / 2)))
-						{
-							p->setPosition(sf::Vector2f(p->getfLock()->getPosition().x - (p->getfLock()->getAnimationSprite()->getGlobalBounds().width / 2) + (p->getAnimationSprite()->getGlobalBounds().width / 2), p->getPosition().y));
-						}
-						//If moving past right side
-						else if (p->getfLock() == dynamic_cast<Floor*>(p->getfLock())->getRight() && (p->getPosition().x + (p->getAnimationSprite()->getGlobalBounds().width / 2)) >= (p->getfLock()->getPosition().x + (p->getfLock()->getAnimationSprite()->getGlobalBounds().width / 2)))
-						{
-							p->setPosition(sf::Vector2f(p->getfLock()->getPosition().x + (p->getfLock()->getAnimationSprite()->getGlobalBounds().width / 2) - (p->getAnimationSprite()->getGlobalBounds().width / 2), p->getPosition().y));
-						}
-					}
-				}
-
-				if (PepperShot* p = dynamic_cast<PepperShot*>(l[x]))
-				{
-					if (Enemy* e = dynamic_cast<Enemy*>(l[n]))
-						e->setStunned(true);
-				}
-				
 			}
+
+			//If right side is to right of window's right
+			if (l[x]->getPosition().x + (l[x]->getAnimationSprite()->getGlobalBounds().width / 2) >= window->getSize().x)
+				l[x]->setPosition(sf::Vector2f(l[x]->getPosition().x - (l[x]->getPosition().x + (l[x]->getAnimationSprite()->getGlobalBounds().width / 2) - window->getSize().x), l[x]->getPosition().y));
+
+			//If left side is to left of window's left
+			else if (l[x]->getPosition().x - (l[x]->getAnimationSprite()->getGlobalBounds().width / 2) <= 0)
+				l[x]->setPosition(sf::Vector2f(0 + (l[x]->getAnimationSprite()->getGlobalBounds().width / 2), l[x]->getPosition().y));
+
+			//If bottom is below window bottom
+			if (l[x]->getPosition().y + (l[x]->getAnimationSprite()->getGlobalBounds().height / 2) >= window->getSize().y)
+				l[x]->setPosition(sf::Vector2f(l[x]->getPosition().x, l[x]->getPosition().y - (l[x]->getPosition().y + (l[x]->getAnimationSprite()->getGlobalBounds().height / 2) - window->getSize().y)));
+
+			//If top is above window top
+			else if (l[x]->getPosition().y - (l[x]->getAnimationSprite()->getGlobalBounds().height / 2) <= 0)
+				l[x]->setPosition(sf::Vector2f(l[x]->getPosition().x, 0 + (l[x]->getAnimationSprite()->getGlobalBounds().height / 2)));
 		}
-
-		//If right side is to right of window's right
-		if (l[x]->getPosition().x + (l[x]->getAnimationSprite()->getGlobalBounds().width / 2) >= window->getSize().x)
-			l[x]->setPosition(sf::Vector2f(l[x]->getPosition().x - (l[x]->getPosition().x + (l[x]->getAnimationSprite()->getGlobalBounds().width / 2) - window->getSize().x), l[x]->getPosition().y));
-
-		//If left side is to left of window's left
-		else if (l[x]->getPosition().x - (l[x]->getAnimationSprite()->getGlobalBounds().width / 2) <= 0)
-			l[x]->setPosition(sf::Vector2f(0 + (l[x]->getAnimationSprite()->getGlobalBounds().width / 2), l[x]->getPosition().y));
-
-		//If bottom is below window bottom
-		if (l[x]->getPosition().y + (l[x]->getAnimationSprite()->getGlobalBounds().height / 2) >= window->getSize().y)
-			l[x]->setPosition(sf::Vector2f(l[x]->getPosition().x, l[x]->getPosition().y - (l[x]->getPosition().y + (l[x]->getAnimationSprite()->getGlobalBounds().height / 2) - window->getSize().y)));
-
-		//If top is above window top
-		else if (l[x]->getPosition().y - (l[x]->getAnimationSprite()->getGlobalBounds().height / 2) <= 0)
-			l[x]->setPosition(sf::Vector2f(l[x]->getPosition().x, 0 + (l[x]->getAnimationSprite()->getGlobalBounds().height / 2)));
-
 	}
 
 	return;
