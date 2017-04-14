@@ -11,6 +11,7 @@
 #include "Floor.h"
 #include "Enemy.h"
 #include "PepperShot.h"
+#include <stdlib.h>
 
 Level::Level(int levelNumber, int lives, int score, sf::RenderWindow *window)
 {
@@ -285,41 +286,109 @@ void Level::buildLevel()
 //no preconditions/postconditions
 void Level::buildLevelOne()
 {
+	int step = 0;
+	Floor ex;
+	Ladder ex2;
+	int offset = ((window->getSize().x - (13 * 75)) /2);
+
+	//1st Floor
+	step = buildFloor(step, (4 * 3) + 5, offset, window->getSize().y / 5);
+	for (int i = 0; i < step; i += 4)
+		gameObjects.at(i)->getAnimationSprite()->setColor(sf::Color::Blue);
+
+	//2nd Floor
+	step = buildFloor(step, 5, offset,(window->getSize().y / 5) + (2 * 75)); 
+	for (int i = step - 5; i < step; i += 4)
+		gameObjects.at(i)->getAnimationSprite()->setColor(sf::Color::Blue);
+	
+	step = buildFloor(step, 9, offset + (6 * 75), (window->getSize().y / 5) + (2 * 75));
+	for (int i = step - 9; i < step; i += 4)
+		gameObjects.at(i)->getAnimationSprite()->setColor(sf::Color::Blue);
+
+	//3rd Floor
+	step = buildFloor(step, 5, offset + (3 * 75), (window->getSize().y / 5) + (3 * 75));
+	for (int i = step - 5; i < step; i += 4)
+		gameObjects.at(i)->getAnimationSprite()->setColor(sf::Color::Blue);
+
+	//4th Floor
+	step = buildFloor(step, 5, offset, (window->getSize().y / 5) + (4 * 75));
+	for (int i = step - 5; i < step; i += 4)
+		gameObjects.at(i)->getAnimationSprite()->setColor(sf::Color::Blue);
+
+	step = buildFloor(step, 5, offset + (9 * 75), (window->getSize().y / 5) + (4 * 75));
+	for (int i = step - 5; i < step; i += 4)
+		gameObjects.at(i)->getAnimationSprite()->setColor(sf::Color::Blue);
+
+	//5th Floor
+	//step = buildFloor(step, 9, offset + (3 * 75), (window->getSize().y / 5) + (5 * 75));
+	//for (int i = step - 9; i < step; i += 4)
+	//	gameObjects.at(i)->getAnimationSprite()->setColor(sf::Color::Blue);
+	
+	//6th Floor
+	step = buildFloor(step, 5, offset + (9 * 75), (window->getSize().y / 5) + (6 * 75));
+	for (int i = step - 5; i < step; i += 4)
+		gameObjects.at(i)->getAnimationSprite()->setColor(sf::Color::Blue);
+
+	//7th Floor
+	step = buildFloor(step, (4 * 3) + 1, offset, (window->getSize().y / 5) + (7 * 75));
+	for (int i = step - 13; i < step; i += 4)
+		gameObjects.at(i)->getAnimationSprite()->setColor(sf::Color::Blue);
+	
+	//8th Floor
+	step = buildFloor(step, (4 * 3) + 5, offset, (window->getSize().y / 5) + (9 * 75));
+	for (int i = step - 17; i < step; i += 4)
+		gameObjects.at(i)->getAnimationSprite()->setColor(sf::Color::Blue);
+	
+	step = buildLadder(step, 2, gameObjects.at(0)->getPosition().x, gameObjects.at(0)->getPosition().y + (ex2.getAnimationSprite()->getGlobalBounds().height / 2) - 4);
+
+	gameObjects.push_back(new Item("ice_cream_cone"));
+	gameObjects.at(step)->setPosition(sf::Vector2f(710, 477));
+	gameObjects.push_back(new Item("fries"));
+	gameObjects.at(step + 1)->setPosition(sf::Vector2f(660, 477));
+	gameObjects.push_back(new Item("coffee"));
+	gameObjects.at(step + 2)->setPosition(sf::Vector2f(610, 477));
+	gameObjects.push_back(new Enemy("egg"));
+	gameObjects.at(step + 3)->setPosition(sf::Vector2f(550, 477));
+	gameObjects.push_back(new Enemy("hotdog"));
+	gameObjects.at(step + 4)->setPosition(sf::Vector2f(600, 477));
+	gameObjects.push_back(new Enemy("pickle"));
+	gameObjects.at(step + 5)->setPosition(sf::Vector2f(650, 477));
+}
 
 
-	for (int i = 0; i < 5; i++)
-	{ 
-		gameObjects.push_back(new Floor());
-		gameObjects.at(i)->setPosition(sf::Vector2f(500 + 56 * i, 500));
-	}
-	for (int i = 0; i < 5; i++)
+int Level::buildFloor(int step, int it, int x_, int y_)
+{
+	for (int i = step; i < step + it; i++)
 	{
-		dynamic_cast<Floor*> (gameObjects.at(i))->setLeft(dynamic_cast<Floor*> (gameObjects.at(0)));
-		dynamic_cast<Floor*> (gameObjects.at(i))->setRight(dynamic_cast<Floor*> (gameObjects.at(4)));
+		gameObjects.push_back(new Floor());
+		gameObjects.at(i)->setPosition(sf::Vector2f(x_ + (56 * (i - step)), y_));
 	}
-	for (int i = 5; i < 10; i++)
+	for (int i = step; i < step + it; i++)
+	{
+		dynamic_cast<Floor*> (gameObjects.at(i))->setLeft(dynamic_cast<Floor*> (gameObjects.at(step)));
+		dynamic_cast<Floor*> (gameObjects.at(i))->setRight(dynamic_cast<Floor*> (gameObjects.at(step + it - 1)));
+	}
+
+	return step + it;
+}
+
+
+int Level::buildLadder(int step, int it, int x_, int y_)
+{
+	for (int i = step; i < step + it; i++)
 	{
 		gameObjects.push_back(new Ladder());
-		gameObjects.at(i)->setPosition(sf::Vector2f(570, 100 + i * 75));
+		gameObjects.at(i)->setPosition(sf::Vector2f(x_, y_ + ((i - step) * 75)));
 	}
-	for (int i = 5; i < 10; i++)
+	for (int i = step; i < step + it; i++)
 	{
-		dynamic_cast<Ladder*> (gameObjects.at(i))->setTop(dynamic_cast<Ladder*> (gameObjects.at(5)));
-		dynamic_cast<Ladder*> (gameObjects.at(i))->setBot(dynamic_cast<Ladder*> (gameObjects.at(9)));
+		dynamic_cast<Ladder*> (gameObjects.at(i))->setTop(dynamic_cast<Ladder*> (gameObjects.at(step)));
+		dynamic_cast<Ladder*> (gameObjects.at(i))->setBot(dynamic_cast<Ladder*> (gameObjects.at(step + it - 1)));
 	}
-	gameObjects.push_back(new Item("ice_cream_cone"));
-	gameObjects.at(10)->setPosition(sf::Vector2f(710, 477));
-	gameObjects.push_back(new Item("fries"));
-	gameObjects.at(11)->setPosition(sf::Vector2f(660, 477));
-	gameObjects.push_back(new Item("coffee"));
-	gameObjects.at(12)->setPosition(sf::Vector2f(610, 477));
-	gameObjects.push_back(new Enemy("egg"));
-	gameObjects.at(13)->setPosition(sf::Vector2f(550, 477));
-	gameObjects.push_back(new Enemy("hotdog"));
-	gameObjects.at(14)->setPosition(sf::Vector2f(600, 477));
-	gameObjects.push_back(new Enemy("pickle"));
-	gameObjects.at(15)->setPosition(sf::Vector2f(650, 477));
+
+	return step + it;
 }
+
 
 //build the second level
 //no preconditions/postconditions
@@ -385,14 +454,14 @@ void Level::collisionCheck(std::vector<GameObject*> l)
 						p->setlLock(l[n]);
 
 						//If moving past top of ladder
-						if (p->getlLock() == dynamic_cast<Ladder*>(p->getlLock())->getTop() && (p->getPosition().y + (p->getAnimationSprite()->getGlobalBounds().height / 2)) <= (p->getlLock()->getPosition().y - (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2) + 10))
+						if (p->getlLock() == dynamic_cast<Ladder*>(p->getlLock())->getTop() && (p->getPosition().y + (p->getAnimationSprite()->getGlobalBounds().height / 2)) <= (p->getlLock()->getPosition().y - (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2) + 5))
 						{
-							p->setPosition(sf::Vector2f(p->getlLock()->getPosition().x, p->getlLock()->getPosition().y - (p->getAnimationSprite()->getGlobalBounds().height / 2)));
+							p->setPosition(sf::Vector2f(p->getlLock()->getPosition().x, p->getlLock()->getPosition().y - (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2)));
 						}
 						//If moving past bottom of ladder
 						else if (p->getlLock() == dynamic_cast<Ladder*>(p->getlLock())->getBot() && (p->getPosition().y + (p->getAnimationSprite()->getGlobalBounds().height / 2)) >= (p->getlLock()->getPosition().y + (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2)))
 						{
-							p->setPosition(sf::Vector2f(p->getlLock()->getPosition().x, p->getlLock()->getPosition().y - (p->getAnimationSprite()->getGlobalBounds().height / 2)));
+							p->setPosition(sf::Vector2f(p->getlLock()->getPosition().x, p->getlLock()->getPosition().y + (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2) - (p->getAnimationSprite()->getGlobalBounds().height / 2)));
 						}
 					}
 
@@ -439,12 +508,12 @@ void Level::collisionCheck(std::vector<GameObject*> l)
 						//If moving past top of ladder
 						if (p->getlLock() == dynamic_cast<Ladder*>(p->getlLock())->getTop() && (p->getPosition().y + (p->getAnimationSprite()->getGlobalBounds().height / 2)) <= (p->getlLock()->getPosition().y - (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2) + 15))
 						{
-							p->setPosition(sf::Vector2f(p->getlLock()->getPosition().x, p->getlLock()->getPosition().y - (p->getAnimationSprite()->getGlobalBounds().height / 2)));
+							p->setPosition(sf::Vector2f(p->getlLock()->getPosition().x, p->getlLock()->getPosition().y - (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2)));
 						}
 						//If moving past bottom of ladder
 						else if (p->getlLock() == dynamic_cast<Ladder*>(p->getlLock())->getBot() && (p->getPosition().y + (p->getAnimationSprite()->getGlobalBounds().height / 2)) >= (p->getlLock()->getPosition().y + (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2)))
 						{
-							p->setPosition(sf::Vector2f(p->getlLock()->getPosition().x, p->getlLock()->getPosition().y - (p->getAnimationSprite()->getGlobalBounds().height / 2)));
+							p->setPosition(sf::Vector2f(p->getlLock()->getPosition().x, p->getlLock()->getPosition().y + (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2) - (p->getAnimationSprite()->getGlobalBounds().height / 2)));
 						}
 					}
 

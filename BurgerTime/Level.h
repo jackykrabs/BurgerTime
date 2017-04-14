@@ -24,6 +24,10 @@ private:
 	void buildLevelFour();
 	void buildLevelFive();
 	void buildLevelSix();
+
+	int buildFloor(int, int, int, int);
+	int buildLadder(int, int, int, int);
+
 	void handleEvents(sf::Event);
 	void gameLogic();
 	void drawObjects();
