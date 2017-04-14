@@ -290,56 +290,84 @@ void Level::buildLevelOne()
 	Floor ex;
 	Ladder ex2;
 	int offset = ((window->getSize().x - (13 * 75)) /2);
+	int fComp = ex.getAnimationSprite()->getGlobalBounds().height;
 
-	//1st Floor
-	step = buildFloor(step, (4 * 3) + 5, offset, window->getSize().y / 5);
+	//1st Floor (Step 0-16)
+	step = buildFloor(step, (4 * 3) + 5, offset, (window->getSize().y / 5));
 	for (int i = 0; i < step; i += 4)
 		gameObjects.at(i)->getAnimationSprite()->setColor(sf::Color::Blue);
 
-	//2nd Floor
-	step = buildFloor(step, 5, offset,(window->getSize().y / 5) + (2 * 75)); 
+	//2nd Floor (Step 17-31)
+	step = buildFloor(step, 5, offset,(window->getSize().y / 5) + (2 * 75) - fComp); 
 	for (int i = step - 5; i < step; i += 4)
 		gameObjects.at(i)->getAnimationSprite()->setColor(sf::Color::Blue);
 	
-	step = buildFloor(step, 9, offset + (6 * 75), (window->getSize().y / 5) + (2 * 75));
+	step = buildFloor(step, 9, offset + (6 * 75), (window->getSize().y / 5) + (2 * 75)- fComp);
 	for (int i = step - 9; i < step; i += 4)
 		gameObjects.at(i)->getAnimationSprite()->setColor(sf::Color::Blue);
 
-	//3rd Floor
-	step = buildFloor(step, 5, offset + (3 * 75), (window->getSize().y / 5) + (3 * 75));
+	//3rd Floor (Step 32-37)
+	step = buildFloor(step, 5, offset + (3 * 75), (window->getSize().y / 5) + (3 * 75) - fComp);
 	for (int i = step - 5; i < step; i += 4)
 		gameObjects.at(i)->getAnimationSprite()->setColor(sf::Color::Blue);
 
-	//4th Floor
-	step = buildFloor(step, 5, offset, (window->getSize().y / 5) + (4 * 75));
+	//4th Floor (Step 38-48)
+	step = buildFloor(step, 5, offset, (window->getSize().y / 5) + (4 * 75) - fComp);
 	for (int i = step - 5; i < step; i += 4)
 		gameObjects.at(i)->getAnimationSprite()->setColor(sf::Color::Blue);
 
-	step = buildFloor(step, 5, offset + (9 * 75), (window->getSize().y / 5) + (4 * 75));
+	step = buildFloor(step, 5, offset + (9 * 75), (window->getSize().y / 5) + (4 * 75) - fComp);
 	for (int i = step - 5; i < step; i += 4)
 		gameObjects.at(i)->getAnimationSprite()->setColor(sf::Color::Blue);
 
-	//5th Floor
-	//step = buildFloor(step, 9, offset + (3 * 75), (window->getSize().y / 5) + (5 * 75));
-	//for (int i = step - 9; i < step; i += 4)
-	//	gameObjects.at(i)->getAnimationSprite()->setColor(sf::Color::Blue);
+	//5th Floor (Step 49-58)
+	step = buildFloor(step, 9, offset + (3 * 75), (window->getSize().y / 5) + (5 * 75) - fComp);
+	for (int i = step - 9; i < step; i += 4)
+		gameObjects.at(i)->getAnimationSprite()->setColor(sf::Color::Blue);
 	
-	//6th Floor
-	step = buildFloor(step, 5, offset + (9 * 75), (window->getSize().y / 5) + (6 * 75));
+	//6th Floor (Step 59-64)
+	step = buildFloor(step, 5, offset + (9 * 75), (window->getSize().y / 5) + (6 * 75) - fComp);
 	for (int i = step - 5; i < step; i += 4)
 		gameObjects.at(i)->getAnimationSprite()->setColor(sf::Color::Blue);
 
-	//7th Floor
-	step = buildFloor(step, (4 * 3) + 1, offset, (window->getSize().y / 5) + (7 * 75));
+	//7th Floor (Step 65-78)
+	step = buildFloor(step, (4 * 3) + 1, offset, (window->getSize().y / 5) + (7 * 75) - fComp);
 	for (int i = step - 13; i < step; i += 4)
 		gameObjects.at(i)->getAnimationSprite()->setColor(sf::Color::Blue);
 	
-	//8th Floor
-	step = buildFloor(step, (4 * 3) + 5, offset, (window->getSize().y / 5) + (9 * 75));
+	//8th Floor (Step 79-96)
+	step = buildFloor(step, (4 * 3) + 5, offset, (window->getSize().y / 5) + (9 * 75) - fComp);
 	for (int i = step - 17; i < step; i += 4)
 		gameObjects.at(i)->getAnimationSprite()->setColor(sf::Color::Blue);
 	
-	step = buildLadder(step, 2, gameObjects.at(0)->getPosition().x, gameObjects.at(0)->getPosition().y + (ex2.getAnimationSprite()->getGlobalBounds().height / 2) - 4);
+	//0
+	step = buildLadder(step, 2, gameObjects.at(0)->getPosition().x, gameObjects.at(0)->getPosition().y + (ex2.getAnimationSprite()->getGlobalBounds().height / 2) - fComp);
+	step = buildLadder(step, 5, gameObjects.at(0)->getPosition().x, gameObjects.at(32)->getPosition().y + (ex2.getAnimationSprite()->getGlobalBounds().height / 2) * 3 - fComp);
+	
+	//2 !!
+	step = buildLadder(step, 5, gameObjects.at(2)->getPosition().x, gameObjects.at(17)->getPosition().y + (ex2.getAnimationSprite()->getGlobalBounds().height / 2));
+
+	//4
+	step = buildLadder(step, 9, gameObjects.at(4)->getPosition().x, gameObjects.at(0)->getPosition().y + (ex2.getAnimationSprite()->getGlobalBounds().height / 2) - fComp);
+	
+	//6
+	step = buildLadder(step, 3, gameObjects.at(6)->getPosition().x, gameObjects.at(0)->getPosition().y + (ex2.getAnimationSprite()->getGlobalBounds().height / 2) - fComp);
+
+	//8
+	step = buildLadder(step, 9, gameObjects.at(8)->getPosition().x, gameObjects.at(0)->getPosition().y + (ex2.getAnimationSprite()->getGlobalBounds().height / 2) - fComp);
+
+	//10!!
+	step = buildLadder(step, 3, gameObjects.at(10)->getPosition().x, gameObjects.at(17)->getPosition().y + (ex2.getAnimationSprite()->getGlobalBounds().height / 2) - (fComp / 2));
+
+	step = buildLadder(step, 9, gameObjects.at(12)->getPosition().x, gameObjects.at(0)->getPosition().y + (ex2.getAnimationSprite()->getGlobalBounds().height / 2) - fComp);
+
+	//14 !!
+	step = buildLadder(step, 5, gameObjects.at(14)->getPosition().x, gameObjects.at(32)->getPosition().y + (ex2.getAnimationSprite()->getGlobalBounds().height / 2) * 3 - fComp);
+
+	//16
+	step = buildLadder(step, 4, gameObjects.at(16)->getPosition().x, gameObjects.at(0)->getPosition().y + (ex2.getAnimationSprite()->getGlobalBounds().height / 2) - fComp);
+	//!!
+	step = buildLadder(step, 3, gameObjects.at(16)->getPosition().x, gameObjects.at(59)->getPosition().y + (ex2.getAnimationSprite()->getGlobalBounds().height / 2) - fComp);
 
 	gameObjects.push_back(new Item("ice_cream_cone"));
 	gameObjects.at(step)->setPosition(sf::Vector2f(710, 477));
@@ -430,7 +458,7 @@ void Level::collisionCheck(std::vector<GameObject*> l)
 {
 	for (int x = 0; x < l.size(); x++)
 	{
-		if (l[x] == dynamic_cast<GameObject*>(l[x]))
+		if (l[x] == dynamic_cast<Player*>(l[x]) || l[x] == dynamic_cast<Enemy*>(l[x]))
 		{
 			for (int n = 0; n < l.size(); n++)
 			{
