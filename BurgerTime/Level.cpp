@@ -15,6 +15,7 @@
 
 Level::Level(int levelNumber, int lives, int score, sf::RenderWindow *window)
 {
+	dirLock = sf::Keyboard::Key::Unknown;
 	this->window = window;
 	this->levelNumber = levelNumber;
 	this->score = score;
@@ -140,7 +141,10 @@ void Level::handleEvents(sf::Event event)
 		window->close();
 		break;
 	case sf::Event::KeyPressed:
+		if (dirLock == sf::Keyboard::Key::Unknown)
+			dirLock = event.key.code;
 
+		//if ()
 		/*If Gridlock returns a nullptr, it means that the player is colliding with both
 		a floor and a ladder and a keypress must determine where to go*/
 		if (gridLock(nullptr) == nullptr)
@@ -151,7 +155,7 @@ void Level::handleEvents(sf::Event event)
 		switch (event.key.code)
 		{
 		case sf::Keyboard::Down:
-			if (player->getlLock() == gridLock(nullptr))//If currently locked to ladder
+			if (dirLock == event.key.code && player->getlLock() == gridLock(nullptr))//If currently locked to ladder
 			{
 				player->setvY(5);
 				if (player->getAction() != "climbing")
@@ -162,7 +166,7 @@ void Level::handleEvents(sf::Event event)
 			}
 			break;
 		case sf::Keyboard::Up:
-			if (player->getlLock() == gridLock(nullptr))//If currently locked to ladder
+			if (dirLock == event.key.code && player->getlLock() == gridLock(nullptr))//If currently locked to ladder
 			{
 				player->setvY(-5);
 				if (player->getAction() != "climbing")
@@ -173,7 +177,7 @@ void Level::handleEvents(sf::Event event)
 			}
 			break;
 		case sf::Keyboard::Left:
-			if (player->getfLock() == gridLock(nullptr))//If currently locked to floor
+			if (dirLock == event.key.code && player->getfLock() == gridLock(nullptr))//If currently locked to floor
 			{
 				if (player->getAction() != "walking")
 				{
@@ -189,7 +193,7 @@ void Level::handleEvents(sf::Event event)
 			}
 			break;
 		case sf::Keyboard::Right:
-			if (player->getfLock() == gridLock(nullptr))//If currently locked to floor
+			if (dirLock == event.key.code && player->getfLock() == gridLock(nullptr))//If currently locked to floor
 			{
 				if (player->getAction() != "walking")
 				{
@@ -204,6 +208,7 @@ void Level::handleEvents(sf::Event event)
 				}
 			}
 			break;
+
 		case sf::Keyboard::Return:
 			if (player->getAction() != "throwing")
 			{
@@ -231,7 +236,9 @@ void Level::handleEvents(sf::Event event)
 		break;
 
 	//make it so the gameobject stops moving when the key is released
-	case sf::Event::KeyReleased:
+		case sf::Event::KeyReleased:
+			if (event.key.code == dirLock)
+				dirLock = sf::Keyboard::Key::Unknown;
 		player->setvX(0);
 		player->setvY(0);
 		if (player->getAction() == "climbing")
@@ -246,6 +253,8 @@ void Level::handleEvents(sf::Event event)
 		}
 		break;
 	}
+
+	player->setfLock(nullptr); player->setlLock(nullptr); //Prevents rubber banding
 }
 
 //draw the objects in the level
@@ -303,57 +312,86 @@ void Level::buildLevelOne()
 	Floor ex;
 	Ladder ex2;
 	int offset = ((window->getSize().x - (13 * 75)) /2);
+	int fComp = ex.getAnimationSprite()->getGlobalBounds().height;
 
-	//1st Floor
-	step = buildFloor(step, (4 * 3) + 5, offset, window->getSize().y / 5);
+	//1st Floor (Step 0-16)
+	step = buildFloor(step, (4 * 3) + 5, offset, (window->getSize().y / 5));
 	for (int i = 0; i < step; i += 4)
 		gameObjects.at(i)->getAnimationSprite()->setColor(sf::Color::Blue);
 
-	//2nd Floor
-	step = buildFloor(step, 5, offset,(window->getSize().y / 5) + (2 * 75)); 
+	//2nd Floor (Step 17-31)
+	step = buildFloor(step, 5, offset,(window->getSize().y / 5) + (2 * 75) - fComp); 
 	for (int i = step - 5; i < step; i += 4)
 		gameObjects.at(i)->getAnimationSprite()->setColor(sf::Color::Blue);
 	
-	step = buildFloor(step, 9, offset + (6 * 75), (window->getSize().y / 5) + (2 * 75));
+	step = buildFloor(step, 9, offset + (6 * 75), (window->getSize().y / 5) + (2 * 75)- fComp);
 	for (int i = step - 9; i < step; i += 4)
 		gameObjects.at(i)->getAnimationSprite()->setColor(sf::Color::Blue);
 
-	//3rd Floor
-	step = buildFloor(step, 5, offset + (3 * 75), (window->getSize().y / 5) + (3 * 75));
+	//3rd Floor (Step 32-37)
+	step = buildFloor(step, 5, offset + (3 * 75), (window->getSize().y / 5) + (3 * 75) - fComp);
 	for (int i = step - 5; i < step; i += 4)
 		gameObjects.at(i)->getAnimationSprite()->setColor(sf::Color::Blue);
 
-	//4th Floor
-	step = buildFloor(step, 5, offset, (window->getSize().y / 5) + (4 * 75));
+	//4th Floor (Step 38-48)
+	step = buildFloor(step, 5, offset, (window->getSize().y / 5) + (4 * 75) - fComp);
 	for (int i = step - 5; i < step; i += 4)
 		gameObjects.at(i)->getAnimationSprite()->setColor(sf::Color::Blue);
 
-	step = buildFloor(step, 5, offset + (9 * 75), (window->getSize().y / 5) + (4 * 75));
+	step = buildFloor(step, 5, offset + (9 * 75), (window->getSize().y / 5) + (4 * 75) - fComp);
 	for (int i = step - 5; i < step; i += 4)
 		gameObjects.at(i)->getAnimationSprite()->setColor(sf::Color::Blue);
 
-	//5th Floor
-	//step = buildFloor(step, 9, offset + (3 * 75), (window->getSize().y / 5) + (5 * 75));
-	//for (int i = step - 9; i < step; i += 4)
-	//	gameObjects.at(i)->getAnimationSprite()->setColor(sf::Color::Blue);
+	//5th Floor (Step 49-58)
+	step = buildFloor(step, 9, offset + (3 * 75), (window->getSize().y / 5) + (5 * 75) - fComp);
+	for (int i = step - 9; i < step; i += 4)
+		gameObjects.at(i)->getAnimationSprite()->setColor(sf::Color::Blue);
 	
-	//6th Floor
-	step = buildFloor(step, 5, offset + (9 * 75), (window->getSize().y / 5) + (6 * 75));
+	//6th Floor (Step 59-64)
+	step = buildFloor(step, 5, offset + (9 * 75), (window->getSize().y / 5) + (6 * 75) - fComp);
 	for (int i = step - 5; i < step; i += 4)
 		gameObjects.at(i)->getAnimationSprite()->setColor(sf::Color::Blue);
 
-	//7th Floor
-	step = buildFloor(step, (4 * 3) + 1, offset, (window->getSize().y / 5) + (7 * 75));
+	//7th Floor (Step 65-78)
+	step = buildFloor(step, (4 * 3) + 1, offset, (window->getSize().y / 5) + (7 * 75) - fComp);
 	for (int i = step - 13; i < step; i += 4)
 		gameObjects.at(i)->getAnimationSprite()->setColor(sf::Color::Blue);
 	
-	//8th Floor
-	step = buildFloor(step, (4 * 3) + 5, offset, (window->getSize().y / 5) + (9 * 75));
+	//8th Floor (Step 79-96)
+	step = buildFloor(step, (4 * 3) + 5, offset, (window->getSize().y / 5) + (9 * 75) - fComp);
 	for (int i = step - 17; i < step; i += 4)
 		gameObjects.at(i)->getAnimationSprite()->setColor(sf::Color::Blue);
 	
-	step = buildLadder(step, 2, gameObjects.at(0)->getPosition().x, gameObjects.at(0)->getPosition().y + (ex2.getAnimationSprite()->getGlobalBounds().height / 2) - 4);
+	//0
+	step = buildLadder(step, 2, gameObjects.at(0)->getPosition().x, gameObjects.at(0)->getPosition().y - (fComp / 2) + (ex2.getAnimationSprite()->getGlobalBounds().height / 2) - fComp);
+	step = buildLadder(step, 5, gameObjects.at(0)->getPosition().x, gameObjects.at(32)->getPosition().y - ((fComp / 2) * 3) + (ex2.getAnimationSprite()->getGlobalBounds().height / 2) * 3 - fComp);
+	
+	//2 !!
+	step = buildLadder(step, 5, gameObjects.at(2)->getPosition().x, gameObjects.at(17)->getPosition().y - fComp + (ex2.getAnimationSprite()->getGlobalBounds().height / 2));
 
+	//4
+	step = buildLadder(step, 9, gameObjects.at(4)->getPosition().x, gameObjects.at(0)->getPosition().y  - (fComp / 2) + (ex2.getAnimationSprite()->getGlobalBounds().height / 2) - fComp);
+	
+	//6
+	step = buildLadder(step, 3, gameObjects.at(6)->getPosition().x, gameObjects.at(0)->getPosition().y - (fComp / 2) + (ex2.getAnimationSprite()->getGlobalBounds().height / 2) - fComp);
+
+	//8
+	step = buildLadder(step, 9, gameObjects.at(8)->getPosition().x, gameObjects.at(0)->getPosition().y - (fComp / 2) + (ex2.getAnimationSprite()->getGlobalBounds().height / 2) - fComp);
+
+	//10
+	step = buildLadder(step, 3, gameObjects.at(10)->getPosition().x, gameObjects.at(17)->getPosition().y - (fComp / 2) + (ex2.getAnimationSprite()->getGlobalBounds().height / 2) - fComp);
+	//12
+	step = buildLadder(step, 9, gameObjects.at(12)->getPosition().x, gameObjects.at(0)->getPosition().y - (fComp / 2) + (ex2.getAnimationSprite()->getGlobalBounds().height / 2) - fComp);
+
+	//14
+	step = buildLadder(step, 5, gameObjects.at(14)->getPosition().x, gameObjects.at(32)->getPosition().y - (fComp/ 2 * 3) + (ex2.getAnimationSprite()->getGlobalBounds().height / 2) * 3 - fComp);
+
+	//16
+	step = buildLadder(step, 4, gameObjects.at(16)->getPosition().x, gameObjects.at(0)->getPosition().y - (fComp / 2) + (ex2.getAnimationSprite()->getGlobalBounds().height / 2) - fComp);
+	step = buildLadder(step, 3, gameObjects.at(16)->getPosition().x, gameObjects.at(59)->getPosition().y - (fComp / 2) + (ex2.getAnimationSprite()->getGlobalBounds().height / 2) - fComp);
+
+	gameObjects.push_back(new Enemy("pickle"));
+	
 	gameObjects.push_back(new Item("ice_cream_cone"));
 	gameObjects.at(step)->setOriginalPosition(sf::Vector2f(710, 477));
 	gameObjects.push_back(new Item("fries"));
@@ -443,7 +481,7 @@ void Level::collisionCheck(std::vector<GameObject*> l)
 {
 	for (int x = 0; x < l.size(); x++)
 	{
-		if (l[x] == dynamic_cast<GameObject*>(l[x]))
+		if (l[x] == dynamic_cast<Player*>(l[x]) || l[x] == dynamic_cast<Enemy*>(l[x]) || l[x] == dynamic_cast<PepperShot*>(l[x]))
 		{
 			for (int n = 0; n < l.size(); n++)
 			{
@@ -467,33 +505,33 @@ void Level::collisionCheck(std::vector<GameObject*> l)
 							p->setlLock(l[n]);
 
 							//If moving past top of ladder
-							if (p->getlLock() == dynamic_cast<Ladder*>(p->getlLock())->getTop() && (p->getPosition().y + (p->getAnimationSprite()->getGlobalBounds().height / 2)) <= (p->getlLock()->getPosition().y - (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2) + 5))
+							if (dirLock == sf::Keyboard::Key::Up && p->getlLock() == dynamic_cast<Ladder*>(p->getlLock())->getTop() && (p->getPosition().y + (p->getAnimationSprite()->getGlobalBounds().height / 2)) <= (p->getlLock()->getPosition().y - (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2) + 5))
 							{
-								p->setPosition(sf::Vector2f(p->getlLock()->getPosition().x, p->getlLock()->getPosition().y - (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2)));
+								p->setPosition(sf::Vector2f(p->getlLock()->getPosition().x, p->getlLock()->getPosition().y - (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2) - (p->getAnimationSprite()->getGlobalBounds().height / 4)));
 							}
 							//If moving past bottom of ladder
-							else if (p->getlLock() == dynamic_cast<Ladder*>(p->getlLock())->getBot() && (p->getPosition().y + (p->getAnimationSprite()->getGlobalBounds().height / 2)) >= (p->getlLock()->getPosition().y + (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2)))
+							else if (dirLock == sf::Keyboard::Key::Down && p->getlLock() == dynamic_cast<Ladder*>(p->getlLock())->getBot() && (p->getPosition().y + (p->getAnimationSprite()->getGlobalBounds().height / 2)) >= (p->getlLock()->getPosition().y + (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2)))
 							{
 								p->setPosition(sf::Vector2f(p->getlLock()->getPosition().x, p->getlLock()->getPosition().y + (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2) - (p->getAnimationSprite()->getGlobalBounds().height / 2)));
 							}
 						}
-
 
 						if (l[n] == dynamic_cast<Floor*> (l[n]))//If colliding with floor
 						{
 							p->setfLock(l[n]);
 
 							//If moving past left side
-							if (p->getfLock() == dynamic_cast<Floor*>(p->getfLock())->getLeft() && (p->getPosition().x - (p->getAnimationSprite()->getGlobalBounds().width / 2)) <= (p->getfLock()->getPosition().x - (p->getfLock()->getAnimationSprite()->getGlobalBounds().width / 2)))
+							if (dirLock == sf::Keyboard::Left && p->getfLock() == dynamic_cast<Floor*>(p->getfLock())->getLeft() && (p->getPosition().x - (p->getAnimationSprite()->getGlobalBounds().width / 2)) <= (p->getfLock()->getPosition().x - (p->getfLock()->getAnimationSprite()->getGlobalBounds().width / 2)))
 							{
 								p->setPosition(sf::Vector2f(p->getfLock()->getPosition().x - (p->getfLock()->getAnimationSprite()->getGlobalBounds().width / 2) + (p->getAnimationSprite()->getGlobalBounds().width / 2), p->getPosition().y));
 							}
 							//If moving past right side
-							else if (p->getfLock() == dynamic_cast<Floor*>(p->getfLock())->getRight() && (p->getPosition().x + (p->getAnimationSprite()->getGlobalBounds().width / 2)) >= (p->getfLock()->getPosition().x + (p->getfLock()->getAnimationSprite()->getGlobalBounds().width / 2)))
+							else if (dirLock == sf::Keyboard::Key::Right && p->getfLock() == dynamic_cast<Floor*>(p->getfLock())->getRight() && (p->getPosition().x + (p->getAnimationSprite()->getGlobalBounds().width / 2)) >= (p->getfLock()->getPosition().x + (p->getfLock()->getAnimationSprite()->getGlobalBounds().width / 2)))
 							{
 								p->setPosition(sf::Vector2f(p->getfLock()->getPosition().x + (p->getfLock()->getAnimationSprite()->getGlobalBounds().width / 2) - (p->getAnimationSprite()->getGlobalBounds().width / 2), p->getPosition().y));
 							}
 						}
+
 						if (Item* i = dynamic_cast<Item*> (l[n]))
 							i->setToDie(true);
 
@@ -531,22 +569,23 @@ void Level::collisionCheck(std::vector<GameObject*> l)
 						{
 							p->setlLock(l[n]);
 
+
 							//If moving past top of ladder
-							if (p->getlLock() == dynamic_cast<Ladder*>(p->getlLock())->getTop() && (p->getPosition().y + (p->getAnimationSprite()->getGlobalBounds().height / 2)) <= (p->getlLock()->getPosition().y - (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2) + 15))
+							if (p->getlLock() == dynamic_cast<Ladder*>(p->getlLock())->getTop() && (p->getPosition().y + (p->getAnimationSprite()->getGlobalBounds().height / 2)) <= (p->getlLock()->getPosition().y - (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2) + 2))
 							{
-								p->setPosition(sf::Vector2f(p->getlLock()->getPosition().x, p->getlLock()->getPosition().y - (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2)));
+								p->setPosition(sf::Vector2f(p->getlLock()->getPosition().x, p->getlLock()->getPosition().y - (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2) - 2));
 							}
 							//If moving past bottom of ladder
-							else if (p->getlLock() == dynamic_cast<Ladder*>(p->getlLock())->getBot() && (p->getPosition().y + (p->getAnimationSprite()->getGlobalBounds().height / 2)) >= (p->getlLock()->getPosition().y + (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2)))
+							else if (p->getlLock() == dynamic_cast<Ladder*>(p->getlLock())->getBot() && (p->getPosition().y + (p->getAnimationSprite()->getGlobalBounds().height / 2)) >= (p->getlLock()->getPosition().y + (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2) + 3))
 							{
 								p->setPosition(sf::Vector2f(p->getlLock()->getPosition().x, p->getlLock()->getPosition().y + (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2) - (p->getAnimationSprite()->getGlobalBounds().height / 2)));
 							}
 						}
 
-
 						if (l[n] == dynamic_cast<Floor*> (l[n]))//If colliding with floor
 						{
 							p->setfLock(l[n]);
+
 
 							//If moving past left side
 							if (p->getfLock() == dynamic_cast<Floor*>(p->getfLock())->getLeft() && (p->getPosition().x - (p->getAnimationSprite()->getGlobalBounds().width / 2)) <= (p->getfLock()->getPosition().x - (p->getfLock()->getAnimationSprite()->getGlobalBounds().width / 2)))
@@ -594,9 +633,17 @@ void Level::collisionCheck(std::vector<GameObject*> l)
 
 bool Level::overlap(GameObject * r1, GameObject * r2)
 {
+	int legsComp = 2;
+	int lComp = 1;
+
+	if ((r1 == dynamic_cast<Player*>(r1) || r1 == dynamic_cast<Enemy*>(r1)) && (r2 == dynamic_cast<Floor*>(r2) || r2 == dynamic_cast<Ladder*>(r2)))
+	{
+		legsComp = 4; lComp = -1;
+	}
+
 	if ((r1->getPosition().x - (r1->getAnimationSprite()->getGlobalBounds().width / 2)) < (r2->getPosition().x + (r2->getAnimationSprite()->getGlobalBounds().width / 2)) && //If r1 left edge to left of r2 right edge
 		(r1->getPosition().x + (r1->getAnimationSprite()->getGlobalBounds().width / 2)) > (r2->getPosition().x - (r2->getAnimationSprite()->getGlobalBounds().width / 2)) && //If r1 right edge to left of r2 left edge
-		(r1->getPosition().y - (r1->getAnimationSprite()->getGlobalBounds().height / 2)) < (r2->getPosition().y + (r2->getAnimationSprite()->getGlobalBounds().height / 2)) && //If r1 top above r2 bottom
+		(r1->getPosition().y - ((r1->getAnimationSprite()->getGlobalBounds().height / legsComp) * lComp)) < (r2->getPosition().y + (r2->getAnimationSprite()->getGlobalBounds().height / 2)) && //If r1 top above r2 bottom
 		(r1->getPosition().y + (r1->getAnimationSprite()->getGlobalBounds().height / 2)) > (r2->getPosition().y - (r2->getAnimationSprite()->getGlobalBounds().height / 2))) //If r1 bottom below r2 top
 	{
 		return true;
@@ -629,7 +676,7 @@ GameObject* Level::gridLock(sf::Keyboard::Key* k)
 	//Ladder
 	if (p->getlLock() != nullptr && p->getfLock() == nullptr)
 	{
-			p->setPosition(sf::Vector2f(p->getlLock()->getPosition().x, p->getPosition().y)); //Set x to ladder's x
+		p->setPosition(sf::Vector2f(p->getlLock()->getPosition().x, p->getPosition().y)); //Set x to ladder's x
 
 		return p->getlLock();
 	}

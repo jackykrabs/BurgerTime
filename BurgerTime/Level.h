@@ -11,6 +11,7 @@ public:
 	~Level();
 	int getScore() { return score; }
 	void play();
+
 private:
 	void reset();
 	int lives;
@@ -28,7 +29,7 @@ private:
 
 	int buildFloor(int, int, int, int);
 	int buildLadder(int, int, int, int);
-
+	
 	void handleEvents(sf::Event);
 	void gameLogic();
 	void drawObjects();
@@ -42,6 +43,7 @@ private:
 	void collisionCheck(std::vector<GameObject*>);
 	bool overlap(GameObject *, GameObject *);
 
+	sf::Keyboard::Key dirLock;
 	sf::Font font;
 	sf::Text livesLabel;
 	sf::Text shotsLabel;
