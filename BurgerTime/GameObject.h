@@ -17,9 +17,10 @@ public:
 
 	virtual void die();
 
-	int getDeathCountDown() { return deathCountDown;  }
+	void setOriginalPosition(sf::Vector2f originalPosition);
+	sf::Vector2f getOriginalPosition() { return originalPosition; }
 
-	void setAnimationSpeed(int speed) { animation->setAnimationSpeed(speed); }
+	int getDeathCountDown() { return deathCountDown;  }
 
 	void setToDie(bool toDie) { this->toDie = toDie; }
 	bool getToDie() { return toDie; }
@@ -33,9 +34,6 @@ public:
 	void setPosition(sf::Vector2f);
 	sf::Vector2f getPosition() { return position; }
 
-	sf::Vector2f getOriginalPosition() { return originalPosition; }
-	void setOriginalPosition(sf::Vector2f originalPosition);
-	
 	void setvX(double x) { velocity.x = x; }
 	void setvY(double y) { velocity.y = y; }
 
@@ -49,6 +47,7 @@ public:
 
 	sf::Sprite* getAnimationSprite() { return animation->getSprite(); }
 protected:
+	sf::Vector2f originalPosition;
 	bool toDie;
 	Animation* animation;
 	sf::Texture myTexture;
@@ -59,7 +58,6 @@ protected:
 	int deathTimer;
 	sf::Vector2f velocity;
 	sf::Vector2f position;
-	sf::Vector2f originalPosition;
 	double x;
 	double y;
 	int team;

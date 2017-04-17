@@ -13,7 +13,8 @@ public:
 	void play();
 
 private:
-	void reset();
+	int pauseBuffer;
+	bool paused;
 	int lives;
 	int score;
 	bool levelComplete = false;
@@ -30,15 +31,13 @@ private:
 	int buildFloor(int, int, int, int);
 	int buildLadder(int, int, int, int);
 	
+	void reset();
 	void handleEvents(sf::Event);
 	void gameLogic();
 	void drawObjects();
 	GameObject* gridLock(sf::Keyboard::Key*);//Locks Character to level platforms
 	sf::Clock gameClock;
 	sf::Time gameTime;
-
-	int pauseBuffer;
-	bool paused;
 
 	void collisionCheck(std::vector<GameObject*>);
 	bool overlap(GameObject *, GameObject *);

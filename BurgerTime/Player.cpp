@@ -8,8 +8,7 @@ Player::Player() : GameObject("pepper")
 	floorLock = nullptr; ladLock = nullptr;
 	animation->setScale(sf::Vector2f(5,5));
 	deathCountDown = 1;
-	animation->setPosition(100,162.25);
-	originalPosition = sf::Vector2f(100, 162.25);
+	this->setOriginalPosition(sf::Vector2f(850,600));
 }
 
 
@@ -49,9 +48,7 @@ void Player::processAction()
 	{
 		animation->setMinFrame(14);
 		animation->setMaxFrame(19);
-		animation->setAnimationSpeed(20);
 	}
-
 
 	this->animation->setFrame(this->animation->getMinFrame());
 	this->animation->updateOrigin();

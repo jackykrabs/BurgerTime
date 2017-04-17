@@ -21,10 +21,12 @@ Level::Level(int levelNumber, int lives, int score, sf::RenderWindow *window)
 	this->score = score;
 	this->lives = lives;
 
-	pauseBuffer = 0;
 	player = new Player();
 	buildLevel();
 	player->setShots(200);
+
+	paused = false;
+	pauseBuffer = 0;
 
 	//set up the display information
 	font.loadFromFile("Pixeled.ttf");
@@ -80,12 +82,14 @@ void Level::play()
 			drawObjects();
 
 			gameClock.restart();
+
 			if (paused)
 				pauseBuffer++;
-			if (pauseBuffer == 120){
+			if (pauseBuffer == 120)
+			{
 				paused = false;
-				reset();
 				pauseBuffer = 0;
+				reset();
 			}
 		}
 	}
@@ -399,11 +403,11 @@ void Level::buildLevelOne()
 	gameObjects.push_back(new Item("coffee"));
 	gameObjects.at(step + 2)->setOriginalPosition(sf::Vector2f(610, 477));
 	gameObjects.push_back(new Enemy("egg"));
-	gameObjects.at(step + 3)->setOriginalPosition(sf::Vector2f(377, 162.25));
+	gameObjects.at(step + 3)->setOriginalPosition(sf::Vector2f(550, 477));
 	gameObjects.push_back(new Enemy("hotdog"));
-	gameObjects.at(step + 4)->setOriginalPosition(sf::Vector2f(420, 162.25));
+	gameObjects.at(step + 4)->setOriginalPosition(sf::Vector2f(600, 477));
 	gameObjects.push_back(new Enemy("pickle"));
-	gameObjects.at(step + 5)->setOriginalPosition(sf::Vector2f(400, 162.25));
+	gameObjects.at(step + 5)->setOriginalPosition(sf::Vector2f(650, 477));
 }
 
 
@@ -535,27 +539,16 @@ void Level::collisionCheck(std::vector<GameObject*> l)
 						if (Item* i = dynamic_cast<Item*> (l[n]))
 							i->setToDie(true);
 
-<<<<<<< HEAD
-					//DEATH TO PEPPER!!!!11 (no but this is what happens when he gets hit by an enemy)
-					if (Enemy* e = dynamic_cast<Enemy*>(l[n]))
-					{
-						if (!paused)
-=======
 						//DEATH TO PEPPER!!!!11
 						if (Enemy* e = dynamic_cast<Enemy*>(l[n]))
->>>>>>> origin/jack_stuff
 						{
 							if (e->getStunned() == false && e->getToDie() == false)
 							{
-								p->setlLock(nullptr); p->setfLock(nullptr); //Wipes gridlock for movement readjustment after respawning
-<<<<<<< HEAD
+								p->setlLock(nullptr);
+								p->setfLock(nullptr); //Wipes gridlock for movement readjustment after respawning
+								paused = true;
 								player->setAction("dying");
 								player->processAction();
-								paused = true;
-=======
-								p->setPosition(sf::Vector2f(850, 600));
-								lives--;
->>>>>>> origin/jack_stuff
 							}
 						}
 					}
@@ -690,7 +683,6 @@ GameObject* Level::gridLock(sf::Keyboard::Key* k)
 	}
 
 }
-
 void Level::reset()
 {
 	lives--;
