@@ -26,6 +26,10 @@ private:
 	bool stunned;
 	int stunnedTimer;
 
+	//std::vector<GameObject*> path;
+	GameObject* pathFind(Player*, sf::Vector2f);
+	GameObject* goal;
+
 	bool conflict;
 	GameObject* floorLock;//Points to floor player is locked to (if it is)
 	GameObject* ladLock;//Points to ladder player is locked to (if it is)

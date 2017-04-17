@@ -351,7 +351,7 @@ void Level::buildLevelOne()
 	
 	//0
 	step = buildLadder(step, 2, gameObjects.at(0)->getPosition().x, gameObjects.at(0)->getPosition().y - (fComp / 2) + (ex2.getAnimationSprite()->getGlobalBounds().height / 2) - fComp);
-	step = buildLadder(step, 5, gameObjects.at(0)->getPosition().x, gameObjects.at(32)->getPosition().y - (fComp / 2 * 3) + (ex2.getAnimationSprite()->getGlobalBounds().height / 2) * 3 - fComp);
+	step = buildLadder(step, 5, gameObjects.at(0)->getPosition().x, gameObjects.at(32)->getPosition().y - ((fComp / 2) * 3) + (ex2.getAnimationSprite()->getGlobalBounds().height / 2) * 3 - fComp);
 	
 	//2 !!
 	step = buildLadder(step, 5, gameObjects.at(2)->getPosition().x, gameObjects.at(17)->getPosition().y - fComp + (ex2.getAnimationSprite()->getGlobalBounds().height / 2));
@@ -370,13 +370,15 @@ void Level::buildLevelOne()
 	//12
 	step = buildLadder(step, 9, gameObjects.at(12)->getPosition().x, gameObjects.at(0)->getPosition().y - (fComp / 2) + (ex2.getAnimationSprite()->getGlobalBounds().height / 2) - fComp);
 
-	//14 !!
-	step = buildLadder(step, 5, gameObjects.at(14)->getPosition().x, gameObjects.at(32)->getPosition().y - (fComp / 2 * 3) + (ex2.getAnimationSprite()->getGlobalBounds().height / 2) * 3 - fComp);
+	//14
+	step = buildLadder(step, 5, gameObjects.at(14)->getPosition().x, gameObjects.at(32)->getPosition().y - (fComp/ 2 * 3) + (ex2.getAnimationSprite()->getGlobalBounds().height / 2) * 3 - fComp);
 
 	//16
 	step = buildLadder(step, 4, gameObjects.at(16)->getPosition().x, gameObjects.at(0)->getPosition().y - (fComp / 2) + (ex2.getAnimationSprite()->getGlobalBounds().height / 2) - fComp);
 	step = buildLadder(step, 3, gameObjects.at(16)->getPosition().x, gameObjects.at(59)->getPosition().y - (fComp / 2) + (ex2.getAnimationSprite()->getGlobalBounds().height / 2) - fComp);
 
+	gameObjects.push_back(new Enemy("pickle"));
+	
 	gameObjects.push_back(new Item("ice_cream_cone"));
 	gameObjects.at(step)->setPosition(sf::Vector2f(710, 477));
 	gameObjects.push_back(new Item("fries"));
@@ -543,12 +545,12 @@ void Level::collisionCheck(std::vector<GameObject*> l)
 
 
 							//If moving past top of ladder
-							if (p->getlLock() == dynamic_cast<Ladder*>(p->getlLock())->getTop() && (p->getPosition().y + (p->getAnimationSprite()->getGlobalBounds().height / 2)) <= (p->getlLock()->getPosition().y - (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2)))
+							if (p->getlLock() == dynamic_cast<Ladder*>(p->getlLock())->getTop() && (p->getPosition().y + (p->getAnimationSprite()->getGlobalBounds().height / 2)) <= (p->getlLock()->getPosition().y - (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2) + 2))
 							{
-								p->setPosition(sf::Vector2f(p->getlLock()->getPosition().x, p->getlLock()->getPosition().y - (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2)));
+								p->setPosition(sf::Vector2f(p->getlLock()->getPosition().x, p->getlLock()->getPosition().y - (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2) - 2));
 							}
 							//If moving past bottom of ladder
-							else if (p->getlLock() == dynamic_cast<Ladder*>(p->getlLock())->getBot() && (p->getPosition().y + (p->getAnimationSprite()->getGlobalBounds().height / 2)) >= (p->getlLock()->getPosition().y + (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2) + 5))
+							else if (p->getlLock() == dynamic_cast<Ladder*>(p->getlLock())->getBot() && (p->getPosition().y + (p->getAnimationSprite()->getGlobalBounds().height / 2)) >= (p->getlLock()->getPosition().y + (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2) + 3))
 							{
 								p->setPosition(sf::Vector2f(p->getlLock()->getPosition().x, p->getlLock()->getPosition().y + (p->getlLock()->getAnimationSprite()->getGlobalBounds().height / 2) - (p->getAnimationSprite()->getGlobalBounds().height / 2)));
 							}
