@@ -542,7 +542,7 @@ void Level::collisionCheck(std::vector<GameObject*> l)
 						//DEATH TO PEPPER!!!!11
 						if (Enemy* e = dynamic_cast<Enemy*>(l[n]))
 						{
-							if (e->getStunned() == false && e->getToDie() == false)
+							if (e->getStunned() == false && e->getToDie() == false && !paused)
 							{
 								p->setlLock(nullptr);
 								p->setfLock(nullptr); //Wipes gridlock for movement readjustment after respawning

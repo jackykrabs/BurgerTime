@@ -23,16 +23,19 @@ void Player::processAction()
 	{
 		animation->setMinFrame(5);
 		animation->setMaxFrame(6);
+		animation->setAnimationSpeed(14);
 	}
 	else if (action == "stillSide")
 	{
 		animation->setMinFrame(5);
 		animation->setMaxFrame(5);
+		animation->setAnimationSpeed(14);
 	}
 	else if (action == "still")
 	{
 		animation->setMinFrame(0);
 		animation->setMaxFrame(0);
+		animation->setAnimationSpeed(14);
 	}
 	else if (action == "throwing")
 	{
@@ -48,6 +51,7 @@ void Player::processAction()
 	{
 		animation->setMinFrame(14);
 		animation->setMaxFrame(19);
+		animation->setAnimationSpeed(23);
 	}
 
 	this->animation->setFrame(this->animation->getMinFrame());
