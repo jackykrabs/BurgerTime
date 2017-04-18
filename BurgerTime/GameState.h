@@ -9,6 +9,7 @@ public:
 	~GameState();
 	void goToNextLevel();
 	void playLevel();
+	int getLives() { return lives; }
 private:
 	sf::RenderWindow gameWindow;
 	Level* level;

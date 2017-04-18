@@ -58,7 +58,7 @@ Level::~Level()
 void Level::play()
 {
 
-	while (window->isOpen() && levelComplete != true)
+	while (window->isOpen() && levelComplete != true && lives != 0)
 	{
 		gameTime = gameClock.getElapsedTime();
 
@@ -236,6 +236,9 @@ void Level::handleEvents(sf::Event event)
 			break;
 		case sf::Keyboard::E:
 			gameObjects.push_back(new Enemy("egg"));
+
+		case sf::Keyboard::C:
+			levelComplete = true;
 		}
 		break;
 

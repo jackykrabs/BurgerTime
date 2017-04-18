@@ -10,6 +10,7 @@ public:
 	Level(int, int, int, sf::RenderWindow*);
 	~Level();
 	int getScore() { return score; }
+	int getLives() { return lives; }
 	void play();
 
 private:

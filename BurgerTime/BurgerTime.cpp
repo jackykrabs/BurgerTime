@@ -8,7 +8,7 @@ int main()
 {
 	GameState myGameState;
 	
-	for (int i = 0; i < 10; i ++)
+	while (myGameState.getLives() != 0)
 		myGameState.playLevel();
 
 	return 0;
