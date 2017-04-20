@@ -166,6 +166,7 @@ void Level::handleEvents(sf::Event event)
 				{
 					player->setAction("climbing");
 					player->processAction();
+					player->setClimbing(true);
 				}
 			}
 			break;
@@ -177,6 +178,7 @@ void Level::handleEvents(sf::Event event)
 				{
 					player->setAction("climbing");
 					player->processAction();
+					player->setClimbing(true);
 				}
 			}
 			break;
@@ -187,6 +189,7 @@ void Level::handleEvents(sf::Event event)
 				{
 					player->setAction("walking");
 					player->processAction();
+					player->setClimbing(false);
 				}
 				player->setvX(-5);
 				if (player->getDirection() == 1)
@@ -203,6 +206,7 @@ void Level::handleEvents(sf::Event event)
 				{
 					player->setAction("walking");
 					player->processAction();
+					player->setClimbing(false);
 				}
 				player->setvX(5);
 				if (player->getDirection() == 0)
@@ -501,16 +505,10 @@ void Level::collisionCheck(std::vector<GameObject*> l)
 					if (Enemy* e = dynamic_cast<Enemy*> (l[x]))
 					{
 						if (l[n] == dynamic_cast<Ladder*> (l[n]))//If colliding with ladderr
-						{
-							player->setClimbing(true);
 							e->setlLock(l[n]);
-						}
 
 						if (l[n] == dynamic_cast<Floor*> (l[n]))//If colliding with floor
-						{
-							player->setClimbing(false);
 							e->setfLock(l[n]);
-						}
 					}
 					//Player Collision Checks
 					//--------------------------------------------------------------------------------------------------------------------------------------------
