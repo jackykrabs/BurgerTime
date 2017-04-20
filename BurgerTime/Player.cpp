@@ -23,36 +23,35 @@ void Player::processAction()
 	{
 		animation->setMinFrame(5);
 		animation->setMaxFrame(6);
-		animation->setAnimationSpeed(14);
 	}
-	else if (action == "stillSide")
+	if (action == "stillSide")
 	{
 		animation->setMinFrame(5);
 		animation->setMaxFrame(5);
-		animation->setAnimationSpeed(14);
 	}
-	else if (action == "still")
+	if (action == "still")
 	{
 		animation->setMinFrame(0);
 		animation->setMaxFrame(0);
-		animation->setAnimationSpeed(14);
 	}
-	else if (action == "throwing")
+	if (action == "throwing")
 	{
 		animation->setMinFrame(11);
 		animation->setMaxFrame(11);
 	}
-	else if (action == "climbing")
+	if (action == "climbing")
 	{
 		animation->setMinFrame(12);
 		animation->setMaxFrame(13);
 	}
-	else if (action == "dying")
+	if (action == "dying")
 	{
 		animation->setMinFrame(14);
 		animation->setMaxFrame(19);
 		animation->setAnimationSpeed(23);
 	}
+	else
+		animation->setAnimationSpeed(7);
 
 	this->animation->setFrame(this->animation->getMinFrame());
 	this->animation->updateOrigin();

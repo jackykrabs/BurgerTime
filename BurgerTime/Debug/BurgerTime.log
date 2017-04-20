@@ -1,31 +1,10 @@
-﻿Build started 4/18/2017 8:48:29 AM.
+﻿Build started 4/20/2017 10:04:18 AM.
      1>Project "C:\Users\17jba02\Documents\GitHub\BurgerTime\BurgerTime\BurgerTime.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\SFML-2.4.2\include" /Zi /nologo /W3 /WX- /sdl /Od /Oy- /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\BurgerTime.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Level.cpp
-         Level.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\SFML-2.4.2\include" /Zi /nologo /W3 /WX- /sdl /Od /Oy- /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\BurgerTime.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt PepperShot.cpp
+         PepperShot.cpp
      1>c:\users\17jba02\documents\github\burgertime\burgertime\GameObject.h(37): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
      1>c:\users\17jba02\documents\github\burgertime\burgertime\GameObject.h(38): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>Level.cpp(114): warning C4018: '<' : signed/unsigned mismatch
-     1>Level.cpp(127): warning C4018: '<' : signed/unsigned mismatch
-     1>Level.cpp(276): warning C4018: '<' : signed/unsigned mismatch
-     1>Level.cpp(322): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-     1>Level.cpp(373): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>Level.cpp(374): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>Level.cpp(377): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>Level.cpp(380): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>Level.cpp(383): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>Level.cpp(386): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>Level.cpp(389): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>Level.cpp(391): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>Level.cpp(394): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>Level.cpp(397): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>Level.cpp(398): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>Level.cpp(422): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Level.cpp(439): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Level.cpp(489): warning C4018: '<' : signed/unsigned mismatch
-     1>Level.cpp(493): warning C4018: '<' : signed/unsigned mismatch
-     1>Level.cpp(693): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\17jba02\documents\github\burgertime\burgertime\level.cpp(688): warning C4715: 'Level::gridLock' : not all control paths return a value
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\17jba02\Documents\GitHub\BurgerTime\Debug\BurgerTime.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\SFML-2.4.2\lib" "sfml-graphics-d.lib" "sfml-window-d.lib" "sfml-system-d.lib" "sfml-audio-d.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\17jba02\Documents\GitHub\BurgerTime\Debug\BurgerTime.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\17jba02\Documents\GitHub\BurgerTime\Debug\BurgerTime.lib" /MACHINE:X86 Debug\Animation.obj
          Debug\Burger.obj
@@ -48,4 +27,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.21
+Time Elapsed 00:00:01.11

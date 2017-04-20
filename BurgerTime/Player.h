@@ -13,6 +13,9 @@ public:
 	std::string getAction() { return action; }
 	void setAction(std::string action) { this->action = action; }
 
+	bool getClimbing() { return isClimbing; }
+	void setClimbing(bool isClimbing){ this->isClimbing = isClimbing; }
+
 	int getShots() { return pepperShots; }
 	void setShots(int shots) { pepperShots = shots; }
 	void incrimentShots(int shots) { pepperShots += shots; }
@@ -24,7 +27,7 @@ public:
 private:
 	std::string action;
 	int pepperShots;
-
+	bool isClimbing;
 	GameObject* floorLock;//Points to floor player is locked to (if it is)
 	GameObject* ladLock;//Points to ladder player is locked to (if it is)
 };
