@@ -24,7 +24,7 @@ Level::Level(int levelNumber, int lives, int score, sf::RenderWindow *window)
 	player = new Player();
 	buildLevel();
 	player->setShots(200);
-	window->setFramerateLimit(50);
+	window->setFramerateLimit(60);
 
 	paused = false;
 	pauseBuffer = 0;
@@ -160,6 +160,7 @@ void Level::handleEvents(sf::Event event)
 			if (dirLock == event.key.code && player->getlLock() == gridLock(nullptr))//If currently locked to ladder
 			{
 				player->setvY(5);
+				player->setClimbingUp(false);
 				if (player->getAction() != "climbing")
 				{
 					player->setAction("climbing");
@@ -172,6 +173,7 @@ void Level::handleEvents(sf::Event event)
 			if (dirLock == event.key.code && player->getlLock() == gridLock(nullptr))//If currently locked to ladder
 			{
 				player->setvY(-5);
+				player->setClimbingUp(true);
 				if (player->getAction() != "climbing")
 				{
 					player->setAction("climbing");
@@ -190,7 +192,7 @@ void Level::handleEvents(sf::Event event)
 					player->setClimbing(false);
 				}
 				player->setvX(-5);
-				if (player->getDirection() == 1)
+				if (player->getDirection() != 0)
 				{
 					player->flip();
 					player->setDirection(0);
@@ -207,7 +209,7 @@ void Level::handleEvents(sf::Event event)
 					player->setClimbing(false);
 				}
 				player->setvX(5);
-				if (player->getDirection() == 0)
+				if (player->getDirection() != 1)
 				{
 					player->flip();
 					player->setDirection(1);
@@ -225,7 +227,12 @@ void Level::handleEvents(sf::Event event)
 					if (player->getClimbing() == false)
 						gameObjects.push_back(new PepperShot(player));
 					else
-						gameObjects.push_back(new PepperShot(player, true));
+					{
+						if (player->getClimbingUp())
+							gameObjects.push_back(new PepperShot(player, true));
+						else
+							gameObjects.push_back(new PepperShot(player, false));
+					}
 					player->incrimentShots(-1);
 					score += 50;
 				}

@@ -9,7 +9,7 @@ PepperShot::PepperShot(GameObject* o) : GameObject("pepper_shot")
 	this->animation->setMinFrame(0);
 	this->animation->setMaxFrame(3);
 	this->animation->setAnimationSpeed(6);
-	initializePosition(false, o);
+	initializePosition(false, false, o);
 }
 
 //create a new peppershot at the location of 'o', but the bool indicates
@@ -19,8 +19,8 @@ PepperShot::PepperShot(GameObject* o, bool isAbove) : PepperShot(o)
 	if (isAbove)
 		this->move(sf::Vector2f(50, -100));
 	else
-		this->move(sf::Vector2f(0, 30));
-	initializePosition(true, o);
+		this->move(sf::Vector2f(50, 100));
+	initializePosition(true, isAbove, o);
 }
 PepperShot::~PepperShot()
 {
@@ -31,7 +31,7 @@ void PepperShot::step()
 	GameObject::step();
 }
 
-void PepperShot::initializePosition(bool isClimbing, GameObject* o)
+void PepperShot::initializePosition(bool isClimbing, bool isAbove, GameObject* o)
 {
 	if (!isClimbing)
 	{
@@ -43,6 +43,9 @@ void PepperShot::initializePosition(bool isClimbing, GameObject* o)
 	}
 	else
 	{
-		this->setPosition(sf::Vector2f(o->getPosition().x, o->getPosition().y - 100));
+		if (isAbove)
+			this->setPosition(sf::Vector2f(o->getPosition().x, o->getPosition().y - 100));
+		else
+			this->setPosition(sf::Vector2f(o->getPosition().x, o->getPosition().y + 100));
 	}
 }

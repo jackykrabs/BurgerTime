@@ -9,5 +9,5 @@ public:
 	~PepperShot();
 	virtual void step();
 private:
-	void initializePosition(bool, GameObject*);
+	void initializePosition(bool, bool, GameObject*);
 };
