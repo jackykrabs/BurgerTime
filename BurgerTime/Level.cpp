@@ -24,6 +24,7 @@ Level::Level(int levelNumber, int lives, int score, sf::RenderWindow *window)
 	player = new Player();
 	buildLevel();
 	player->setShots(200);
+	window->setFramerateLimit(50);
 
 	paused = false;
 	pauseBuffer = 0;
@@ -63,8 +64,6 @@ void Level::play()
 		gameTime = gameClock.getElapsedTime();
 
 		//control the game to be limited to about 60 fps
-		if (gameTime.asMilliseconds() >= 17)
-		{
 			sf::Event event;
 			if (!paused)
 			{
@@ -92,7 +91,6 @@ void Level::play()
 				reset();
 			}
 		}
-	}
 }
 
 //handles all the logic of the game (moving game objects, etc.)
