@@ -58,8 +58,6 @@ Level::~Level()
 //no preconditions or post conditions
 void Level::play()
 {
-	Sound* mySound = new Sound("testMusic.wav", true);
-	mySound->play(); 
 	while (window->isOpen() && levelComplete != true && lives != 0)
 	{
 		gameTime = gameClock.getElapsedTime();
