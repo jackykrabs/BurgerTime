@@ -141,6 +141,7 @@ void Level::handleEvents(sf::Event event)
 	{
 	case sf::Event::Closed:
 		window->close();
+		lives = 0;
 		break;
 	case sf::Event::KeyPressed:
 		if (dirLock == sf::Keyboard::Key::Unknown)
