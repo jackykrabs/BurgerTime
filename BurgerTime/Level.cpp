@@ -10,6 +10,7 @@
 #include "Ladder.h"
 #include "Floor.h"
 #include "Enemy.h"
+#include "Sound.h"
 #include "PepperShot.h"
 #include <stdlib.h>
 
@@ -20,7 +21,6 @@ Level::Level(int levelNumber, int lives, int score, sf::RenderWindow *window)
 	this->levelNumber = levelNumber;
 	this->score = score;
 	this->lives = lives;
-
 	player = new Player();
 	buildLevel();
 	player->setShots(5 );
@@ -58,7 +58,8 @@ Level::~Level()
 //no preconditions or post conditions
 void Level::play()
 {
-
+	Sound* mySound = new Sound("testMusic.wav", true);
+	mySound->play(); 
 	while (window->isOpen() && levelComplete != true && lives != 0)
 	{
 		gameTime = gameClock.getElapsedTime();

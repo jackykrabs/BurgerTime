@@ -12,10 +12,10 @@ Sound::Sound()
 
 Sound::Sound(string fileName, bool temp)
 {
+	music = temp;
 	if (music)
 	{
-		music = temp;
-		if (!gameMusic.openFromFile("Main_Theme.wav"))
+		if (!gameMusic.openFromFile(fileName))
 			cout << "error opening music" << endl;
 	}
 	else
@@ -25,6 +25,7 @@ Sound::Sound(string fileName, bool temp)
 		else
 			gameSound.setBuffer(buffer);
 	}
+	
 }
 
 
