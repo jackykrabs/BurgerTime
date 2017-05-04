@@ -23,7 +23,7 @@ Level::Level(int levelNumber, int lives, int score, sf::RenderWindow *window)
 
 	player = new Player();
 	buildLevel();
-	player->setShots(200);
+	player->setShots(5 );
 	window->setFramerateLimit(60);
 
 	paused = false;
@@ -235,7 +235,6 @@ void Level::handleEvents(sf::Event event)
 							gameObjects.push_back(new PepperShot(player, false));
 					}
 					player->incrimentShots(-1);
-					score += 50;
 				}
 			}
 			break;
@@ -552,8 +551,10 @@ void Level::collisionCheck(std::vector<GameObject*> l)
 							}
 						}
 
-						if (Item* i = dynamic_cast<Item*> (l[n]))
+						if (Item* i = dynamic_cast<Item*> (l[n])){
 							i->setToDie(true);
+							player->incrimentShots(1); 
+						}
 
 						//DEATH TO PEPPER!!!!11
 						if (Enemy* e = dynamic_cast<Enemy*>(l[n]))
