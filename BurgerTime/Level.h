@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "Player.h"
 #include <vector>
+#include "AudioCenter.h"
 
 class Level
 {
@@ -14,6 +15,7 @@ public:
 	void play();
 
 private:
+	AudioCenter* myAC;
 	int pauseBuffer;
 	bool paused;
 	int lives;
@@ -37,8 +39,6 @@ private:
 	void gameLogic();
 	void drawObjects();
 	GameObject* gridLock(sf::Keyboard::Key*);//Locks Character to level platforms
-	sf::Clock gameClock;
-	sf::Time gameTime;
 
 	void collisionCheck(std::vector<GameObject*>);
 	bool overlap(GameObject *, GameObject *);

@@ -89,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="AudioCenter.h" />
     <ClInclude Include="Burger.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Floor.h" />
@@ -107,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="AudioCenter.cpp" />
     <ClCompile Include="Burger.cpp" />
     <ClCompile Include="BurgerTime.cpp" />
     <ClCompile Include="Enemy.cpp" />

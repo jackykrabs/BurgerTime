@@ -16,6 +16,7 @@
 
 Level::Level(int levelNumber, int lives, int score, sf::RenderWindow *window)
 {
+	myAC = new AudioCenter();
 	dirLock = sf::Keyboard::Key::Unknown;
 	this->window = window;
 	this->levelNumber = levelNumber;
@@ -58,9 +59,18 @@ Level::~Level()
 //no preconditions or post conditions
 void Level::play()
 {
+	bool roundStarted = false;
 	while (window->isOpen() && levelComplete != true && lives != 0)
 	{
-		gameTime = gameClock.getElapsedTime();
+		if (!roundStarted)
+		{
+			myAC->playRoundStart();
+			roundStarted = true;
+		}
+		if (myAC->mainTheme->gameMusic.getStatus() != 2)
+		{
+			myAC->playMainTheme();
+		}
 
 		//control the game to be limited to about 60 fps
 			sf::Event event;
@@ -76,10 +86,10 @@ void Level::play()
 			allObjects = gameObjects;
 			allObjects.push_back(player);
 
-			gameLogic();
-			drawObjects();
+			if(myAC->roundStart->gameSound.getStatus() != 2)
+				gameLogic();
 
-			gameClock.restart();
+			drawObjects();
 
 			if (paused)
 				pauseBuffer++;
@@ -560,6 +570,7 @@ void Level::collisionCheck(std::vector<GameObject*> l)
 						{
 							if (e->getStunned() == false && e->getToDie() == false && !paused)
 							{
+								myAC->playDeathSound();
 								p->setlLock(nullptr);
 								p->setfLock(nullptr); //Wipes gridlock for movement readjustment after respawning
 								paused = true;

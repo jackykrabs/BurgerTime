@@ -15,15 +15,17 @@ Sound::Sound(string fileName, bool temp)
 	music = temp;
 	if (music)
 	{
-		if (!gameMusic.openFromFile(fileName))
+		if (!gameMusic.openFromFile("sounds\\" + fileName))
 			cout << "error opening music" << endl;
+		gameMusic.setLoop(true);
 	}
 	else
 	{
-		if (!buffer.loadFromFile(fileName))
+		if (!buffer.loadFromFile("sounds\\" + fileName))
 			cout << "error loading sound" << endl;
 		else
 			gameSound.setBuffer(buffer);
+		gameSound.setLoop(false);
 	}
 	
 }
@@ -38,6 +40,11 @@ void Sound::play()
 		gameSound.play();
 }
 
+void Sound::stop()
+{
+	gameMusic.stop();
+	gameSound.stop();
+}
 
 void Sound::pause()
 {
